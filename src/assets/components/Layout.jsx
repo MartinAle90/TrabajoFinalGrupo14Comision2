@@ -2,9 +2,10 @@ import { Navbar, Container, Nav } from "react-bootstrap";
 import { Outlet } from "react-router-dom";
 import {
   BsFillHouseDoorFill,
-  BsFillPersonLinesFill,
-  BsFillPersonPlusFill,
+  BsCardList,
+  BsPatchPlus,
   BsFillInfoCircleFill,
+  BsStarFill,
 } from "react-icons/bs";
 
 function Layout() {
@@ -22,12 +23,17 @@ function Layout() {
             </Nav.Link>
 
             <Nav.Link href="/productos" className="nav-link text-center">
-              <BsFillPersonLinesFill size={24} className="d-block mx-auto mb-1" />
+              <BsCardList size={24} className="d-block mx-auto mb-1" />
               Productos
             </Nav.Link>
 
+            <Nav.Link href="/favoritos" className="nav-link text-center">
+              <BsStarFill size={24} className="d-block mx-auto mb-1" />
+              Favoritos
+            </Nav.Link>
+
             <Nav.Link href="/producto/nuevo" className="nav-link text-center">
-              <BsFillPersonPlusFill size={24} className="d-block mx-auto mb-1" />
+              <BsPatchPlus size={24} className="d-block mx-auto mb-1" />
               Nuevo Producto
             </Nav.Link>
 

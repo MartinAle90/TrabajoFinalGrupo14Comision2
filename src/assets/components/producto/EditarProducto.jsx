@@ -39,38 +39,43 @@ function EditarProducto({ productos, actualizarProducto }) {
       <Form onSubmit={handleSubmit}>
         <Container className="my-4">
           <h2 className="text-center mb-4">Editar producto</h2>
-          <Row className="mb-3">
+          <Row>
 
             <Col md={6}>
-              <Form.Group>
+              <Form.Group className="mb-3">
                 <Form.Label>Nombre</Form.Label>
                 <Form.Control
                   type="text"
                   name="nombre"
                   value={producto.nombre || ""}
                   onChange={handleChange}
+                  required
+                  onInvalid={(e) => e.target.setCustomValidity("Por favor, ingrese el nombre del producto.")}
+                  onInput={(e) => e.target.setCustomValidity("")}
                 />
               </Form.Group>
             </Col>
-          </Row>
 
-          <Row className="mb-3">
             <Col md={6}>
-              <Form.Group>
-                <Form.Label>Precio</Form.Label>
+              <Form.Group className="mb-3">
+                <Form.Label>Precio $</Form.Label>
                 <Form.Control
                   type="number"
                   name="precio"
                   value={producto.precio || ""}
                   onChange={handleChange}
+                  required
+                  onInvalid={(e) => e.target.setCustomValidity("Por favor, ingrese el precio del producto.")}
+                  onInput={(e) => e.target.setCustomValidity("")}
+                  min={0}
+                  step={0.01}
                 />
               </Form.Group>
             </Col>
           </Row>
-
-          <Row className="mb-3">
+          <Row>
             <Col md={6}>
-              <Form.Group>
+              <Form.Group className="mb-3">
                 <Form.Label>Descripcion</Form.Label>
                 <Form.Control
                   type="text"
@@ -80,11 +85,9 @@ function EditarProducto({ productos, actualizarProducto }) {
                 />
               </Form.Group>
             </Col>
-          </Row>
 
-          <Row className="mb-3">
             <Col md={6}>
-              <Form.Group>
+              <Form.Group className="mb-3">
                 <Form.Label>Categoria</Form.Label>
                 <Form.Control
                   type="text"
@@ -95,7 +98,7 @@ function EditarProducto({ productos, actualizarProducto }) {
               </Form.Group>
             </Col>
           </Row>
-
+          {/*
           <Row className="mb-3">
             <Col md={6}>
               <Form.Group className="d-flex align-items-center h-100 mt-2">
@@ -108,6 +111,7 @@ function EditarProducto({ productos, actualizarProducto }) {
                 />
               </Form.Group>
             </Col>
+            
             <Col md={6}>
               <Form.Group className="d-flex align-items-center h-100 mt-2">
                 <Form.Check
@@ -120,12 +124,16 @@ function EditarProducto({ productos, actualizarProducto }) {
               </Form.Group>
             </Col>
           </Row>
-
+          */}
           <div className="mt-3">
             <Button variant="success" type="submit">
               Guardar Cambios
             </Button>
           </div>
+
+          <Button className="mt-3" variant="secondary" onClick={() => navigate("/productos")}>
+            Volver a la lista
+          </Button>
         </Container>
       </Form >
 
