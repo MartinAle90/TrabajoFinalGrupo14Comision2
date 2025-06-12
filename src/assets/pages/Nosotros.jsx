@@ -1,37 +1,5 @@
 import { Container, Row, Col, Card } from "react-bootstrap";
-
-const miembros = [
-  {
-    nombre: "Leandro",
-    apellido: "Benencia",
-    avatar:
-      "https://ui-avatars.com/api/?name=Leandro+Benencia&background=0D8ABC&color=fff",
-  },
-  {
-    nombre: "Andrea",
-    apellido: "Burgos",
-    avatar:
-      "https://ui-avatars.com/api/?name=Andrea+Burgos&background=0D8ABC&color=fff",
-  },
-  {
-    nombre: "Gonzalo",
-    apellido: "Cruz",
-    avatar:
-      "https://ui-avatars.com/api/?name=Gonzalo+Cruz&background=0D8ABC&color=fff",
-  },
-  {
-    nombre: "Martin",
-    apellido: "Daza",
-    avatar:
-      "https://ui-avatars.com/api/?name=Martin+Daza&background=0D8ABC&color=fff",
-  },
-  {
-    nombre: "Naim",
-    apellido: "Apaza",
-    avatar:
-      "https://ui-avatars.com/api/?name=Naim+Apaza&background=0D8ABC&color=fff",
-  },
-];
+import miembros from "../data/miembros.json"; // Importa el archivo JSON
 
 function Nosotros() {
   return (
