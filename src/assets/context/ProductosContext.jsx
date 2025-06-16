@@ -22,7 +22,7 @@ export const ProductsProvider = ({ children }) => {
           const whitFavorite = data.map((p) => ({
             ...p,
             favorite: false,
-            estado: false,
+            estado: true,
           }));
 
           localStorage.setItem("productos", JSON.stringify(whitFavorite));
@@ -59,7 +59,7 @@ export const ProductsProvider = ({ children }) => {
       ...product,
       id: ultimoId,
       favorite: false,
-      estado: false,
+      estado: true,
     };
 
     const updated = [...products, newProduct];
@@ -77,10 +77,11 @@ export const ProductsProvider = ({ children }) => {
   //eliminar producto
   const deleteProduct = (id) => {
     const updated = products.map((p) =>
-      p.id === id ? { ...p, estado: true } : p,
+      p.id === id ? { ...p, estado: false } : p,
     );
     saveToLocalStorage(updated);
   };
+
 
   return (
     <ProductsContext.Provider
