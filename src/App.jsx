@@ -115,8 +115,8 @@ function App() {
 }
 
 export default App;*/}
-
 import { Container } from "react-bootstrap";
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./assets/components/Layout";
 import Nosotros from "./assets/pages/Nosotros";
@@ -130,13 +130,30 @@ import Favoritos from "./assets/pages/Favoritos";
 import Login from "./assets/pages/Login";
 import RutaProtegida from "./assets/components/RutaProtegida";
 import { AuthProvider } from "./assets/context/AuthContext";
-
+// Declaración única de initialProductos
+const initialProductos = JSON.parse(localStorage.getItem("productos")) || [];
 function App() {
+  const [productos, setProductos] = useState(initialProductos);
+
+  const agregarProducto = (nuevoProducto) => {
+    const nuevaLista = [...productos, nuevoProducto];
+    setProductos(nuevaLista);
+    localStorage.setItem("productos", JSON.stringify(nuevaLista));
+  };
+
+  const actualizarProducto = (productoActualizado) => {
+    const nuevaLista = productos.map((producto) =>
+      producto.id === productoActualizado.id ? productoActualizado : producto
+    );
+    setProductos(nuevaLista);
+    localStorage.setItem("productos", JSON.stringify(nuevaLista));
+  };
+
   return (
     <AuthProvider>
       <Container>
         <Routes>
-          {/* Ruta pública para login */}
+          {/* Ruta para el login */}
           <Route path="/login" element={<Login />} />
 
           {/* Rutas protegidas */}
@@ -150,11 +167,38 @@ function App() {
           >
             <Route index element={<Home />} />
             <Route path="home" element={<Home />} />
-            <Route path="productos" element={<ListaProducto />} />
-            <Route path="producto/nuevo" element={<ProductoForm />} />
-            <Route path="productos/:id/editar" element={<EditarProducto />} />
-            <Route path="productos/:id" element={<DetalleProducto />} />
-            <Route path="favoritos" element={<Favoritos />} />
+            <Route
+              path="productos"
+              element={<ListaProducto productos={productos} setProductos={setProductos} />}
+            />
+
+            {/* Ruta protegida solo para administradores para crear un nuevo producto */}
+            <Route
+              path="producto/nuevo"
+              element={
+                <RutaProtegida rolRequerido="admin">
+                  <ProductoForm agregarProducto={agregarProducto} />
+                </RutaProtegida>
+              }
+            />
+
+            {/* Ruta protegida solo para administradores para editar un producto existente */}
+            <Route
+               path="productos/:id/editar"
+               element={
+                  <RutaProtegida rolRequerido="admin">
+                      <EditarProducto productos={productos} actualizarProducto={actualizarProducto} />
+                  </RutaProtegida>
+                }
+            />
+            <Route
+              path="productos/:id"
+              element={<DetalleProducto productos={productos} />}
+            />
+            <Route
+              path="favoritos"
+              element={<Favoritos productos={productos} />}
+            />
             <Route path="nosotros" element={<Nosotros />} />
             <Route path="*" element={<ErrorPage />} />
           </Route>
@@ -165,4 +209,3 @@ function App() {
 }
 
 export default App;
-
