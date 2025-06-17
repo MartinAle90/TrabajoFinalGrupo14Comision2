@@ -30,7 +30,7 @@ function Login() {
 
   return (
     <Container className="login-container">
-      <Row className="justify-content-center">
+      <Row className="justify-content-center-login">
         <Col xs={12} md={8} lg={5}>
           <Card className="login-card">
             <Card.Body className="login-card-body">

@@ -7,12 +7,14 @@
 
 .card {
     position: relative;
+    align-items: center;
 }
 
 .card-img-container {
     width: 200px;
     height: 200px;
     overflow: hidden;
+    object-fit: contain;
 }
 
 .card-img-container img {

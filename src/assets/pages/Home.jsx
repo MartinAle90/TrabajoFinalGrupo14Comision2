@@ -5,7 +5,7 @@ function Home() {
   return (
 
 <Container className="home-container text-center">
-  <Row className="justify-content-center">
+  <Row  className="justify-content-center">
     <Col md={8}>
       <Card className="home-card">
         <Card.Body>

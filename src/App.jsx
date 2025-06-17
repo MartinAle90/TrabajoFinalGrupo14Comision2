@@ -130,6 +130,8 @@ import Favoritos from "./assets/pages/Favoritos";
 import Login from "./assets/pages/Login";
 import RutaProtegida from "./assets/components/RutaProtegida";
 import { AuthProvider } from "./assets/context/AuthContext";
+import Footer from "./assets/components/producto/Footer";
+
 // Declaración única de initialProductos
 const initialProductos = JSON.parse(localStorage.getItem("productos")) || [];
 function App() {
@@ -150,8 +152,9 @@ function App() {
   };
 
   return (
+    
     <AuthProvider>
-      <Container>
+      <Container className="d-flex flex-column min-vh-100">
         <Routes>
           {/* Ruta para el login */}
           <Route path="/login" element={<Login />} />
@@ -203,6 +206,7 @@ function App() {
             <Route path="*" element={<ErrorPage />} />
           </Route>
         </Routes>
+        <Footer />
       </Container>
     </AuthProvider>
   );
