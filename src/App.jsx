@@ -133,28 +133,29 @@ import { AuthProvider } from "./assets/context/AuthContext";
 // Declaración única de initialProductos
 const initialProductos = JSON.parse(localStorage.getItem("productos")) || [];
 function App() {
-    const [productos, setProductos] = useState(initialProductos);
+  const [productos, setProductos] = useState(initialProductos);
 
-<<<<<<< BenenciaLeandro
+  //<<<<<<< BenenciaLeandro
   const agregarProducto = (nuevoProducto) => {
     const nuevaLista = [...productos, nuevoProducto];
     setProductos(nuevaLista);
     localStorage.setItem("productos", JSON.stringify(nuevaLista));
   };
-=======
+  {/*
+//=======
     const agregarProducto = (nuevoProducto) => {
         setProductos([...productos, nuevoProducto]);
     };
-
-    const actualizarProducto = (productoActualizado) => {
-        const nuevaLista = productos.map((producto) =>
-            producto.id === productoActualizado.id ? productoActualizado : producto
-        );
-        setProductos(nuevaLista);
-        localStorage.setItem("productos", JSON.stringify(nuevaLista));
-    };
->>>>>>> main
-
+*/}
+  const actualizarProducto = (productoActualizado) => {
+    const nuevaLista = productos.map((producto) =>
+      producto.id === productoActualizado.id ? productoActualizado : producto
+    );
+    setProductos(nuevaLista);
+    localStorage.setItem("productos", JSON.stringify(nuevaLista));
+  };
+  //>>>>>>> main
+  {/*
     return (
         <Container>
             <Routes>
@@ -172,11 +173,11 @@ function App() {
             </Routes>
         </Container>
     );
-<<<<<<< BenenciaLeandro
+//<<<<<<< BenenciaLeandro
     setProductos(nuevaLista);
     localStorage.setItem("productos", JSON.stringify(nuevaLista));
   };
-
+*/}
   return (
     <AuthProvider>
       <Container>
@@ -212,12 +213,12 @@ function App() {
 
             {/* Ruta protegida solo para administradores para editar un producto existente */}
             <Route
-               path="productos/:id/editar"
-               element={
-                  <RutaProtegida rolRequerido="admin">
-                      <EditarProducto productos={productos} actualizarProducto={actualizarProducto} />
-                  </RutaProtegida>
-                }
+              path="productos/:id/editar"
+              element={
+                <RutaProtegida rolRequerido="admin">
+                  <EditarProducto productos={productos} actualizarProducto={actualizarProducto} />
+                </RutaProtegida>
+              }
             />
             <Route
               path="productos/:id"
@@ -234,8 +235,6 @@ function App() {
       </Container>
     </AuthProvider>
   );
-=======
->>>>>>> main
 }
 
 export default App;

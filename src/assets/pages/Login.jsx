@@ -11,18 +11,18 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault(); // Evita que se recargue la página al enviar el formulario
-//Validacion de usuario y administrador 
-   if (usuario === "admin" && contrasena === "1234") {
-  localStorage.setItem("logueado", "true");
-  localStorage.setItem("rol", "admin");
-  navigate("/");
-} else if (usuario === "user" && contrasena === "1234") {
-  localStorage.setItem("logueado", "true");
-  localStorage.setItem("rol", "user");
-  navigate("/");
-} else {
-  alert("Credenciales incorrectas");
-}
+    //Validacion de usuario y administrador 
+    if (usuario === "admin" && contrasena === "1234") {
+      localStorage.setItem("logueado", "true");
+      localStorage.setItem("rol", "admin");
+      navigate("/");
+    } else if (usuario === "user" && contrasena === "1234") {
+      localStorage.setItem("logueado", "true");
+      localStorage.setItem("rol", "user");
+      navigate("/");
+    } else {
+      alert("Credenciales incorrectas");
+    }
 
 
   };
