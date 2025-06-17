@@ -5,14 +5,14 @@ import { BsStarFill, BsStar } from "react-icons/bs";
 import { useProducts } from "../../context/ProductosContext"; // Asegúrate de que la ruta sea correcta
 import "../../css/ListaProductos.css";
 
-// Ya no necesitas 'productos' y 'setProductos' como props aquí
+// Ya no se usan los props 'productos' y 'setProductos' porque ahora usamos el contexto
 function ListaProducto() {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
 
-  // Obtener los datos y funciones del contexto
-  const { products, toggleFavorite, deleteProduct } = useProducts(); // También necesitarás deleteProduct
+  // Obtenemos los productos y las funciones del contexto
+  const { products, toggleFavorite, deleteProduct } = useProducts();
 
   const confirmarEliminar = (producto) => {
     setProductoSeleccionado(producto);
@@ -21,7 +21,7 @@ function ListaProducto() {
 
   const handleConfirmar = () => {
     if (productoSeleccionado) {
-      deleteProduct(productoSeleccionado.id); // ¡Usar deleteProduct del contexto!
+      deleteProduct(productoSeleccionado.id); 
     }
     setShowModal(false);
     setProductoSeleccionado(null);

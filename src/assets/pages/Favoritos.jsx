@@ -1,6 +1,6 @@
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { BsStarFill, BsStar } from "react-icons/bs";
-import { useProducts } from "../context/ProductosContext"; // Asegúrate de que la ruta sea correcta
+import { useProducts } from "../context/ProductosContext"; 
 
 
 import "../css/Favoritos.css";
