@@ -15,7 +15,7 @@ import Favoritos from "./assets/pages/Favoritos";
 const initialProductosManuales = JSON.parse(localStorage.getItem("productos")) || []; 
 function App() {
     const [productos, setProductos] = useState([]); 
-   const [cargando, setCargando] = useState(true); 
+    const [cargando, setCargando] = useState(true); 
     const [error, setError] = useState(null);
 
     // Función para obtener productos de la API
@@ -136,37 +136,37 @@ const initialProductos = JSON.parse(localStorage.getItem("productos")) || [];
 
 
 function App() {
-  const [productos, setProductos] = useState(initialProductos);
+    const [productos, setProductos] = useState(initialProductos);
 
-  const agregarProducto = (nuevoProducto) => {
-    setProductos([...productos, nuevoProducto]);
-  };
+    const agregarProducto = (nuevoProducto) => {
+        setProductos([...productos, nuevoProducto]);
+    };
 
-  const actualizarProducto = (productoActualizado) => {
-    const nuevaLista = productos.map((producto) =>
-      producto.id === productoActualizado.id ? productoActualizado : producto
+    const actualizarProducto = (productoActualizado) => {
+        const nuevaLista = productos.map((producto) =>
+            producto.id === productoActualizado.id ? productoActualizado : producto
+        );
+        setProductos(nuevaLista);
+        localStorage.setItem("productos", JSON.stringify(nuevaLista));
+    };
+
+    return (
+        <Container>
+            <Routes>
+                <Route path="/" element={<Layout />}>
+                    <Route index element={<Home />} />
+                    <Route path="home" element={<Home />} />
+                    <Route path="productos" element={<ListaProducto productos={productos} setProductos={setProductos} />} />
+                    <Route path="producto/nuevo" element={<ProductoForm agregarProducto={agregarProducto} />} />
+                    <Route path="productos/:id/editar" element={<EditarProducto productos={productos} actualizarProducto={actualizarProducto} />} />
+                    <Route path="productos/:id" element={<DetalleProducto productos={productos} />} />
+                    <Route path="/favoritos" element={<Favoritos productos={productos} />} />
+                    <Route path="nosotros" element={<Nosotros />} />
+                    <Route path="*" element={<ErrorPage />} />
+                </Route>
+            </Routes>
+        </Container>
     );
-    setProductos(nuevaLista);
-    localStorage.setItem("productos", JSON.stringify(nuevaLista));
-  };
-
-  return (
-    <Container>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="home" element={<Home />} />
-          <Route path="productos" element={<ListaProducto productos={productos} setProductos={setProductos} />} />
-          <Route path="producto/nuevo" element={<ProductoForm agregarProducto={agregarProducto} />} />
-          <Route path="productos/:id/editar" element={<EditarProducto productos={productos} actualizarProducto={actualizarProducto} />} />
-          <Route path="productos/:id" element={<DetalleProducto productos={productos} />} />
-          <Route path="/favoritos" element={<Favoritos productos={productos} />} />
-          <Route path="nosotros" element={<Nosotros />} />
-          <Route path="*" element={<ErrorPage />} />
-        </Route>
-      </Routes>
-    </Container>
-  );
 }
 
 export default App;

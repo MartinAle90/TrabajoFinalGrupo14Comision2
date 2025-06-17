@@ -2,13 +2,17 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Container, Form, Row, Col, Button } from "react-bootstrap";
 import ConfirmacionModal from "../ConfirmacionModal";
+import { useProducts } from "../../context/ProductosContext";
 
-function EditarProducto({ productos, actualizarProducto }) {
+function EditarProducto() {
   const { id } = useParams();
   const navigate = useNavigate();
   const productoId = parseInt(id);
 
-  const productoExistente = productos.find((p) => p.id === productoId);
+  const { products, editProduct } = useProducts();
+
+  const productoExistente = products.find((p) => p.id === productoId);
+
   const [producto, setProducto] = useState({});
   const [mostrarModal, setMostrarModal] = useState(false);
 
@@ -16,21 +20,30 @@ function EditarProducto({ productos, actualizarProducto }) {
     if (!productoExistente) {
       navigate("/productos");
     } else {
-      setProducto(productoExistente);
+      setProducto({
+        id: productoExistente.id,
+        title: productoExistente.title || "",
+        price: productoExistente.price || 0,
+        description: productoExistente.description || "",
+        category: productoExistente.category || "",
+        image: productoExistente.image || "",
+        estado: productoExistente.estado,
+        favorite: productoExistente.favorite,
+      });
     }
   }, [productoExistente, navigate]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setProducto({
-      ...producto,
+    setProducto((prevProducto) => ({
+      ...prevProducto,
       [name]: type === "checkbox" ? checked : value,
-    });
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    actualizarProducto(producto);
+    editProduct(producto.id, producto);
     setMostrarModal(true);
   };
 
@@ -40,17 +53,18 @@ function EditarProducto({ productos, actualizarProducto }) {
         <Container className="my-4">
           <h2 className="text-center mb-4">Editar producto</h2>
           <Row>
-
             <Col md={6}>
               <Form.Group className="mb-3">
-                <Form.Label>Nombre</Form.Label>
+                <Form.Label>Título</Form.Label>
                 <Form.Control
                   type="text"
-                  name="nombre"
-                  value={producto.nombre || ""}
+                  name="title"
+                  value={producto.title || ""}
                   onChange={handleChange}
                   required
-                  onInvalid={(e) => e.target.setCustomValidity("Por favor, ingrese el nombre del producto.")}
+                  onInvalid={(e) =>
+                    e.target.setCustomValidity("Por favor, ingrese el título del producto.")
+                  }
                   onInput={(e) => e.target.setCustomValidity("")}
                 />
               </Form.Group>
@@ -61,11 +75,13 @@ function EditarProducto({ productos, actualizarProducto }) {
                 <Form.Label>Precio $</Form.Label>
                 <Form.Control
                   type="number"
-                  name="precio"
-                  value={producto.precio || ""}
+                  name="price"
+                  value={producto.price || ""}
                   onChange={handleChange}
                   required
-                  onInvalid={(e) => e.target.setCustomValidity("Por favor, ingrese el precio del producto.")}
+                  onInvalid={(e) =>
+                    e.target.setCustomValidity("Por favor, ingrese el precio del producto.")
+                  }
                   onInput={(e) => e.target.setCustomValidity("")}
                   min={0}
                   step={0.01}
@@ -76,11 +92,12 @@ function EditarProducto({ productos, actualizarProducto }) {
           <Row>
             <Col md={6}>
               <Form.Group className="mb-3">
-                <Form.Label>Descripcion</Form.Label>
+                <Form.Label>Descripción</Form.Label>
                 <Form.Control
-                  type="text"
-                  name="descripcion"
-                  value={producto.descripcion || ""}
+                  as="textarea"
+                  rows={3}
+                  name="description"
+                  value={producto.description || ""}
                   onChange={handleChange}
                 />
               </Form.Group>
@@ -88,54 +105,71 @@ function EditarProducto({ productos, actualizarProducto }) {
 
             <Col md={6}>
               <Form.Group className="mb-3">
-                <Form.Label>Categoria</Form.Label>
+                <Form.Label>Categoría</Form.Label>
                 <Form.Control
                   type="text"
-                  name="categoria"
-                  value={producto.categoria || ""}
+                  name="category"
+                  value={producto.category || ""}
                   onChange={handleChange}
                 />
               </Form.Group>
             </Col>
           </Row>
-          {/*
+          <Row>
+            <Col md={6}>
+              <Form.Group className="mb-3">
+                <Form.Label>URL de Imagen</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="image"
+                  value={producto.image || ""}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+            </Col>
+          </Row>
+          {/*}
           <Row className="mb-3">
             <Col md={6}>
               <Form.Group className="d-flex align-items-center h-100 mt-2">
                 <Form.Check
                   type="checkbox"
-                  label="Estado"
+                  label="Estado (Activo/Inactivo)"
                   name="estado"
                   checked={producto.estado || false}
                   onChange={handleChange}
                 />
               </Form.Group>
             </Col>
-            
+
             <Col md={6}>
               <Form.Group className="d-flex align-items-center h-100 mt-2">
                 <Form.Check
                   type="checkbox"
                   label="Favorito"
-                  name="favorito"
-                  checked={producto.favorito || false}
+                  name="favorite"
+                  checked={producto.favorite || false}
                   onChange={handleChange}
                 />
               </Form.Group>
             </Col>
           </Row>
-          */}
+            */}
           <div className="mt-3">
             <Button variant="success" type="submit">
               Guardar Cambios
             </Button>
           </div>
 
-          <Button className="mt-3" variant="secondary" onClick={() => navigate("/productos")}>
+          <Button
+            className="mt-3"
+            variant="secondary"
+            onClick={() => navigate("/productos")}
+          >
             Volver a la lista
           </Button>
         </Container>
-      </Form >
+      </Form>
 
       <ConfirmacionModal
         mostrar={mostrarModal}
@@ -143,7 +177,7 @@ function EditarProducto({ productos, actualizarProducto }) {
           setMostrarModal(false);
           navigate("/productos");
         }}
-        mensaje="producto actualizado correctamente."
+        mensaje="Producto actualizado correctamente."
       />
     </>
   );
