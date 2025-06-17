@@ -28,6 +28,7 @@ function ListaProducto() {
   };
 
   return (
+    <div className="lista-productos">
     <Container className="my-4 text-center">
       <h2 className="mb-4">Lista de productos</h2>
       <Row>
@@ -48,8 +49,7 @@ function ListaProducto() {
                     )}
                   </span>
                 </div>
-                <Card.Body>
-                  <Card.Img
+                <Card.Img
                     className="card-img-container"
                     variant="top"
                     src={
@@ -57,6 +57,8 @@ function ListaProducto() {
                       "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png"
                     }
                   />
+                <Card.Body>
+                  
                   <Card.Title>{producto.title}</Card.Title>
                   <Card.Text>
                     <strong>Precio:</strong> ${producto.price}
@@ -108,6 +110,7 @@ function ListaProducto() {
         </Modal.Footer>
       </Modal>
     </Container>
+    </div>
   );
 }
 

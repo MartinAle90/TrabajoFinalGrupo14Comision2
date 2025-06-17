@@ -1,5 +1,6 @@
 import { Container, Row, Col, Card } from "react-bootstrap";
 import miembros from "../data/miembros.json"; // Importa el archivo JSON
+import "../css/Nosotros.css"; // Asegúrate de que la ruta sea correcta
 
 function Nosotros() {
   return (
