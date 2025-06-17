@@ -17,11 +17,16 @@ export const ProductosProvider = ({ children }) => {
         try {
           initialProductsData = JSON.parse(storedProducts);
           // Verificamos si es un array y si tiene elementos
-          if (Array.isArray(initialProductsData) && initialProductsData.length > 0) {
+          if (
+            Array.isArray(initialProductsData) &&
+            initialProductsData.length > 0
+          ) {
             setProducts(initialProductsData);
           } else {
             // Si el localStorage está vacío se cargan los datos desde la API
-            console.log("LocalStorage 'productos' está vacío o inválido, cargando desde la API.");
+            console.log(
+              "LocalStorage 'productos' está vacío o inválido, cargando desde la API.",
+            );
             await fetchAndSetProducts();
           }
         } catch (e) {
@@ -31,7 +36,9 @@ export const ProductosProvider = ({ children }) => {
         }
       } else {
         // Si no hay nada en localStorage se cargan los datos desde la API
-        console.log("No hay 'productos' en localStorage, cargando desde la API.");
+        console.log(
+          "No hay 'productos' en localStorage, cargando desde la API.",
+        );
         await fetchAndSetProducts();
       }
     };
@@ -72,20 +79,20 @@ export const ProductosProvider = ({ children }) => {
 
   //agregar producto
   const addProduct = (product) => {
-    // Asegurarse de que 'ultimoId' sea un número válido antes de sumarle 1
-    let ultimoId = parseInt(localStorage.getItem("ultimoId"), 10) || 20;
-    ultimoId += 1;
-    localStorage.setItem("ultimoId", ultimoId.toString());
+    const maxId = products.reduce((max, p) => (p.id > max ? p.id : max), 0);
+    const nuevoId = maxId + 1;
 
     const newProduct = {
       ...product,
-      id: ultimoId,
+      id: nuevoId,
       favorite: false,
       estado: true,
     };
 
     const updated = [...products, newProduct];
     saveToLocalStorage(updated);
+
+    localStorage.setItem("ultimoId", nuevoId.toString());
   };
 
   //Editar producto
@@ -103,7 +110,6 @@ export const ProductosProvider = ({ children }) => {
     );
     saveToLocalStorage(updated);
   };
-
 
   return (
     <ProductsContext.Provider
