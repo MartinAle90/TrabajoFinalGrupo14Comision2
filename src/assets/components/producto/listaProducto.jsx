@@ -27,20 +27,21 @@ function ListaProducto() {
     setProductoSeleccionado(null);
   };
 
-  return (
+return (
     <Container className="my-4 text-center">
       <h2 className="mb-4">Lista de productos</h2>
       <Row>
         {products // Usar 'products' del contexto
-          .filter((producto) => producto.estado === true)
+          .filter((producto) => producto.estado === true) // Mantener el filtro de estado
           .map((producto) => (
             <Col md={4} key={producto.id} className="mb-4">
-              <Card className="product-card"> {/* Aplica la clase para altura uniforme */}
+              <Card className="product-card"> {/* Clase para altura uniforme de la tarjeta */}
                 <div className="favorito-checkbox-container">
                   <span
                     className="favorito-icon"
-                    onClick={() => toggleFavorite(producto.id)} // ¡Usar toggleFavorite!
+                    onClick={() => toggleFavorite(producto.id)} // Usar toggleFavorite del contexto
                   >
+                    {/* Usar producto.favorite (propiedad del contexto) */}
                     {producto.favorite ? (
                       <BsStarFill size={24} color="#ffc107" /> // Estrella llena
                     ) : (
@@ -48,20 +49,24 @@ function ListaProducto() {
                     )}
                   </span>
                 </div>
+                {/* Usar producto.image y la clase para estilo de imagen */}
+                <Card.Img
+                  className="card-img-container" // Asegúrate de que esta clase esté definida en tu CSS
+                  variant="top"
+                  src={
+                    producto.image ||
+                    "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png"
+                  }
+                  alt={producto.title} // Usar producto.title
+                />
                 <Card.Body>
-                  <Card.Img
-                    className="card-img-container" // Asegúrate de que esta clase tenga los estilos para el tamaño de la imagen
-                    variant="top"
-                    src={
-                      producto.image ||
-                      "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png"
-                    }
-                  />
-                  <Card.Title>{producto.title}</Card.Title>
+                  <Card.Title>
+                    {producto.title} {/* Usar producto.title */}
+                  </Card.Title>
                   <Card.Text>
-                    <strong>Precio:</strong> ${producto.price}
+                    <strong>Precio:</strong> ${producto.price} {/* Usar producto.price */}
                     <br />
-                    <strong>Categoría:</strong> {producto.category}
+                    <strong>Categoría:</strong> {producto.category} {/* Usar producto.category */}
                   </Card.Text>
                   <Button
                     variant="primary"
