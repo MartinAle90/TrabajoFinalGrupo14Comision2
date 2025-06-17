@@ -115,10 +115,8 @@ function App() {
 }
 
 export default App;*/}
-
-
 import { Container } from "react-bootstrap";
-import { useState } from 'react';
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./assets/components/Layout";
 import Nosotros from "./assets/pages/Nosotros";
@@ -129,15 +127,21 @@ import ProductoForm from "./assets/components/producto/ProductoForm";
 import EditarProducto from "./assets/components/producto/EditarProducto";
 import DetalleProducto from "./assets/components/producto/DetalleProducto";
 import Favoritos from "./assets/pages/Favoritos";
-
+import Login from "./assets/pages/Login";
+import RutaProtegida from "./assets/components/RutaProtegida";
+import { AuthProvider } from "./assets/context/AuthContext";
 // Declaración única de initialProductos
-
 const initialProductos = JSON.parse(localStorage.getItem("productos")) || [];
-
-
 function App() {
     const [productos, setProductos] = useState(initialProductos);
 
+<<<<<<< BenenciaLeandro
+  const agregarProducto = (nuevoProducto) => {
+    const nuevaLista = [...productos, nuevoProducto];
+    setProductos(nuevaLista);
+    localStorage.setItem("productos", JSON.stringify(nuevaLista));
+  };
+=======
     const agregarProducto = (nuevoProducto) => {
         setProductos([...productos, nuevoProducto]);
     };
@@ -149,6 +153,7 @@ function App() {
         setProductos(nuevaLista);
         localStorage.setItem("productos", JSON.stringify(nuevaLista));
     };
+>>>>>>> main
 
     return (
         <Container>
@@ -167,6 +172,70 @@ function App() {
             </Routes>
         </Container>
     );
+<<<<<<< BenenciaLeandro
+    setProductos(nuevaLista);
+    localStorage.setItem("productos", JSON.stringify(nuevaLista));
+  };
+
+  return (
+    <AuthProvider>
+      <Container>
+        <Routes>
+          {/* Ruta para el login */}
+          <Route path="/login" element={<Login />} />
+
+          {/* Rutas protegidas */}
+          <Route
+            path="/"
+            element={
+              <RutaProtegida>
+                <Layout />
+              </RutaProtegida>
+            }
+          >
+            <Route index element={<Home />} />
+            <Route path="home" element={<Home />} />
+            <Route
+              path="productos"
+              element={<ListaProducto productos={productos} setProductos={setProductos} />}
+            />
+
+            {/* Ruta protegida solo para administradores para crear un nuevo producto */}
+            <Route
+              path="producto/nuevo"
+              element={
+                <RutaProtegida rolRequerido="admin">
+                  <ProductoForm agregarProducto={agregarProducto} />
+                </RutaProtegida>
+              }
+            />
+
+            {/* Ruta protegida solo para administradores para editar un producto existente */}
+            <Route
+               path="productos/:id/editar"
+               element={
+                  <RutaProtegida rolRequerido="admin">
+                      <EditarProducto productos={productos} actualizarProducto={actualizarProducto} />
+                  </RutaProtegida>
+                }
+            />
+            <Route
+              path="productos/:id"
+              element={<DetalleProducto productos={productos} />}
+            />
+            <Route
+              path="favoritos"
+              element={<Favoritos productos={productos} />}
+            />
+            <Route path="nosotros" element={<Nosotros />} />
+            <Route path="*" element={<ErrorPage />} />
+          </Route>
+        </Routes>
+      </Container>
+    </AuthProvider>
+  );
+=======
+>>>>>>> main
 }
 
 export default App;
