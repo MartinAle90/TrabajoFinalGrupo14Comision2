@@ -135,18 +135,12 @@ const initialProductos = JSON.parse(localStorage.getItem("productos")) || [];
 function App() {
   const [productos, setProductos] = useState(initialProductos);
 
-  //<<<<<<< BenenciaLeandro
   const agregarProducto = (nuevoProducto) => {
     const nuevaLista = [...productos, nuevoProducto];
     setProductos(nuevaLista);
     localStorage.setItem("productos", JSON.stringify(nuevaLista));
   };
-  {/*
-//=======
-    const agregarProducto = (nuevoProducto) => {
-        setProductos([...productos, nuevoProducto]);
-    };
-*/}
+
   const actualizarProducto = (productoActualizado) => {
     const nuevaLista = productos.map((producto) =>
       producto.id === productoActualizado.id ? productoActualizado : producto
@@ -154,30 +148,7 @@ function App() {
     setProductos(nuevaLista);
     localStorage.setItem("productos", JSON.stringify(nuevaLista));
   };
-  //>>>>>>> main
-  {/*
-    return (
-        <Container>
-            <Routes>
-                <Route path="/" element={<Layout />}>
-                    <Route index element={<Home />} />
-                    <Route path="home" element={<Home />} />
-                    <Route path="productos" element={<ListaProducto productos={productos} setProductos={setProductos} />} />
-                    <Route path="producto/nuevo" element={<ProductoForm agregarProducto={agregarProducto} />} />
-                    <Route path="productos/:id/editar" element={<EditarProducto productos={productos} actualizarProducto={actualizarProducto} />} />
-                    <Route path="productos/:id" element={<DetalleProducto productos={productos} />} />
-                    <Route path="/favoritos" element={<Favoritos productos={productos} />} />
-                    <Route path="nosotros" element={<Nosotros />} />
-                    <Route path="*" element={<ErrorPage />} />
-                </Route>
-            </Routes>
-        </Container>
-    );
-//<<<<<<< BenenciaLeandro
-    setProductos(nuevaLista);
-    localStorage.setItem("productos", JSON.stringify(nuevaLista));
-  };
-*/}
+
   return (
     <AuthProvider>
       <Container>
