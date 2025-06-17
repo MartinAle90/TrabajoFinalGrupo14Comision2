@@ -1,35 +1,56 @@
 import { createContext, useContext, useState, useEffect } from "react";
+
 const ProductsContext = createContext();
 
 export const useProducts = () => useContext(ProductsContext);
 
 export const ProductosProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
-  const [favorites, setFavorites] = useState([]);
+  // const [favorites, setFavorites] = useState([]); // Este no se usa directamente como estado
 
   useEffect(() => {
     const loadProducts = async () => {
-      // Declaración única de initialProductos
-      const initialProductos = JSON.parse(localStorage.getItem("productos"));
+      const storedProducts = localStorage.getItem("productos");
+      let initialProductsData = [];
 
-      if (initialProductos && initialProductos > 0) {
-        setProducts(initialProductos);
-      } else {
+      if (storedProducts) {
         try {
-          const res = await fetch("https://fakestoreapi.com/products");
-          const data = await res.json();
-
-          const whitFavorite = data.map((p) => ({
-            ...p,
-            favorite: false,
-            estado: true,
-          }));
-
-          localStorage.setItem("productos", JSON.stringify(whitFavorite));
-          setProducts(whitFavorite);
+          initialProductsData = JSON.parse(storedProducts);
+          // Verificamos si es un array y si tiene elementos
+          if (Array.isArray(initialProductsData) && initialProductsData.length > 0) {
+            setProducts(initialProductsData);
+          } else {
+            // Si el localStorage está vacío se cargan los datos desde la API
+            console.log("LocalStorage 'productos' está vacío o inválido, cargando desde la API.");
+            await fetchAndSetProducts();
+          }
         } catch (e) {
-          console.error("Error al cargar la api", error);
+          // Si hay un error al parsear JSON se cargan los datos desde la API
+          console.error("Error al parsear productos desde localStorage:", e);
+          await fetchAndSetProducts();
         }
+      } else {
+        // Si no hay nada en localStorage se cargan los datos desde la API
+        console.log("No hay 'productos' en localStorage, cargando desde la API.");
+        await fetchAndSetProducts();
+      }
+    };
+
+    const fetchAndSetProducts = async () => {
+      try {
+        const res = await fetch("https://fakestoreapi.com/products");
+        const data = await res.json();
+
+        const productsWithMeta = data.map((p) => ({
+          ...p,
+          favorite: false,
+          estado: true,
+        }));
+
+        localStorage.setItem("productos", JSON.stringify(productsWithMeta));
+        setProducts(productsWithMeta);
+      } catch (e) {
+        console.error("Error al cargar productos desde la API:", e);
       }
     };
 
@@ -51,7 +72,8 @@ export const ProductosProvider = ({ children }) => {
 
   //agregar producto
   const addProduct = (product) => {
-    let ultimoId = parseInt(localStorage.getItem("ultimoId")) || 0;
+    // Asegurarse de que 'ultimoId' sea un número válido antes de sumarle 1
+    let ultimoId = parseInt(localStorage.getItem("ultimoId"), 10) || 0;
     ultimoId += 1;
     localStorage.setItem("ultimoId", ultimoId.toString());
 

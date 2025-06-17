@@ -2,12 +2,17 @@ import { useState } from "react";
 import { Button, Card, Col, Container, Row, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { BsStarFill, BsStar } from "react-icons/bs";
+import { useProducts } from "../../context/ProductosContext"; // Asegúrate de que la ruta sea correcta
 import "../../css/ListaProductos.css";
 
-function ListaProducto({ productos, setProductos }) {
+// Ya no se usan los props 'productos' y 'setProductos' porque ahora usamos el contexto
+function ListaProducto() {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
+
+  // Obtenemos los productos y las funciones del contexto
+  const { products, toggleFavorite, deleteProduct } = useProducts();
 
   const confirmarEliminar = (producto) => {
     setProductoSeleccionado(producto);
@@ -16,14 +21,7 @@ function ListaProducto({ productos, setProductos }) {
 
   const handleConfirmar = () => {
     if (productoSeleccionado) {
-      // Borrado lógico: cambia el estado a false
-      const nuevaLista = productos.map((producto) =>
-        producto.id === productoSeleccionado.id
-          ? { ...producto, estado: false }
-          : producto
-      );
-      setProductos(nuevaLista);
-      localStorage.setItem("productos", JSON.stringify(nuevaLista));
+      deleteProduct(productoSeleccionado.id); 
     }
     setShowModal(false);
     setProductoSeleccionado(null);
@@ -33,74 +31,62 @@ function ListaProducto({ productos, setProductos }) {
     <Container className="my-4 text-center">
       <h2 className="mb-4">Lista de productos</h2>
       <Row>
-        {productos
-          .filter((producto) => producto.estado === true) 
+        {products // Usar 'products' del contexto
+          .filter((producto) => producto.estado === true)
           .map((producto) => (
-          <Col md={4} key={producto.id} className="mb-4">
-
-            <Card>
-              <div className="favorito-checkbox-container">
-                <span
-                  className="favorito-icon"
-                  onClick={() => {
-                    const actualizado = productos.map((p) =>
-                      p.id === producto.id ? { ...p, favorite: !p.favorite } : p
-                    );
-                    setProductos(actualizado);
-                    localStorage.setItem("productos", JSON.stringify(actualizado));
-                  }}
-                >
-                  {producto.favorite ? (
-                    <BsStarFill size={24} color="#ffc107" /> // Estrella llena
-                  ) : (
-                    <BsStar size={24} color="#ccc" /> // Estrella vacía
-                  )}
-                </span>
-              </div>
-              <Card.Body>
-                <Card.Img className="card-img-container"
-                  variant="top"
-                  src={producto.image || "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png"}
-                />
-                <Card.Title>
-                  {producto.title}
-                </Card.Title>
-                <Card.Text>
-                  <strong>Precio:</strong> ${producto.price}
-                  <br />
-                  <strong>Categoría:</strong> {producto.category}
-                  {/*
-                                    <strong>Estado:</strong>{" "}
-                                    {producto.estado ? "Activo" : "Inactivo"}
-                                    <br />
-                                    <strong>Favorito:</strong>{" "}
-                                    {producto.favorito ? "Si" : "No"}
-                                    */}
-                </Card.Text>
-                <Button
-                  variant="primary"
-                  className="me-2 my-2"
-                  onClick={() => navigate(`/productos/${producto.id}/editar`)}
-                >
-                  Editar
-                </Button>
-                <Button
-                  variant="danger"
-                  className="me-2 my-2"
-                  onClick={() => confirmarEliminar(producto)}
-                >
-                  Eliminar
-                </Button>
-                <Button
-                  variant="secondary"
-                  onClick={() => navigate(`/productos/${producto.id}`)}
-                >
-                  Ver Detalles
-                </Button>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
+            <Col md={4} key={producto.id} className="mb-4">
+              <Card className="product-card"> {/* Aplica la clase para altura uniforme */}
+                <div className="favorito-checkbox-container">
+                  <span
+                    className="favorito-icon"
+                    onClick={() => toggleFavorite(producto.id)} // ¡Usar toggleFavorite!
+                  >
+                    {producto.favorite ? (
+                      <BsStarFill size={24} color="#ffc107" /> // Estrella llena
+                    ) : (
+                      <BsStar size={24} color="#ccc" /> // Estrella vacía
+                    )}
+                  </span>
+                </div>
+                <Card.Body>
+                  <Card.Img
+                    className="card-img-container" // Asegúrate de que esta clase tenga los estilos para el tamaño de la imagen
+                    variant="top"
+                    src={
+                      producto.image ||
+                      "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png"
+                    }
+                  />
+                  <Card.Title>{producto.title}</Card.Title>
+                  <Card.Text>
+                    <strong>Precio:</strong> ${producto.price}
+                    <br />
+                    <strong>Categoría:</strong> {producto.category}
+                  </Card.Text>
+                  <Button
+                    variant="primary"
+                    className="me-2 my-2"
+                    onClick={() => navigate(`/productos/${producto.id}/editar`)}
+                  >
+                    Editar
+                  </Button>
+                  <Button
+                    variant="danger"
+                    className="me-2 my-2"
+                    onClick={() => confirmarEliminar(producto)}
+                  >
+                    Eliminar
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    onClick={() => navigate(`/productos/${producto.id}`)}
+                  >
+                    Ver Detalles
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
       </Row>
 
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
@@ -109,7 +95,7 @@ function ListaProducto({ productos, setProductos }) {
         </Modal.Header>
         <Modal.Body>
           ¿Estás seguro de que querés eliminar a{" "}
-          <strong>{productoSeleccionado?.nombre}</strong> con ID:{" "}
+          <strong>{productoSeleccionado?.title}</strong> con ID:{" "} {/* Cambiado 'nombre' por 'title' */}
           <strong>{productoSeleccionado?.id}</strong>?
         </Modal.Body>
         <Modal.Footer>
