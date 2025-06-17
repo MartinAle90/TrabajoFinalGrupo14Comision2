@@ -5,7 +5,7 @@ import Layout from "./assets/components/Layout";
 import Nosotros from "./assets/pages/Nosotros";
 import Home from "./assets/pages/Home";
 import ErrorPage from "./assets/pages/ErrorPage";
-import ListaProducto from "./assets/components/producto/listaProducto";
+import ListaProducto from "./assets/components/producto/ListaProducto";
 import ProductoForm from "./assets/components/producto/ProductoForm";
 import EditarProducto from "./assets/components/producto/EditarProducto";
 import DetalleProducto from "./assets/components/producto/DetalleProducto";

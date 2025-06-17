@@ -24,22 +24,22 @@ function DetalleProducto({ productos }) {
                             <strong>ID:</strong> {producto.id}
                         </Col>
                         <Col md={4}>
-                            <strong>Nombre:</strong> {producto.nombre}
+                            <strong>Nombre:</strong> {producto.title}
                         </Col>
                         <Col md={4}>
-                            <strong>Precio: </strong>${producto.precio}
-                        </Col>
-                    </Row>
-
-                    <Row className="mb-3">
-                        <Col md={4}>
-                            <strong>Descripcion:</strong> {producto.descripcion}
+                            <strong>Precio: </strong>${producto.price}
                         </Col>
                     </Row>
 
                     <Row className="mb-3">
                         <Col md={4}>
-                            <strong>Categoria:</strong> {producto.categoria}
+                            <strong>Descripcion:</strong> {producto.description}
+                        </Col>
+                    </Row>
+
+                    <Row className="mb-3">
+                        <Col md={4}>
+                            <strong>Categoria:</strong> {producto.category}
                         </Col>
                     </Row>
 
@@ -51,7 +51,7 @@ function DetalleProducto({ productos }) {
 
                     <Row className="mb-3">
                         <Col md={4}>
-                            <strong>Favorito:</strong> {producto.favorito ? "Si" : "No"}
+                            <strong>Favorito:</strong> {producto.favorite ? "Si" : "No"}
                         </Col>
                     </Row>
                 </Card.Body>

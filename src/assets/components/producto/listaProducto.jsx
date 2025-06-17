@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Button, Card, Col, Container, Row, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { BsStarFill, BsStar } from "react-icons/bs";
+import "../../css/ListaProductos.css";
 
 function ListaProducto({ productos, setProductos }) {
   const navigate = useNavigate();
@@ -34,47 +36,71 @@ function ListaProducto({ productos, setProductos }) {
         {productos
           .filter((producto) => producto.estado === true) 
           .map((producto) => (
-            <Col md={4} key={producto.id} className="mb-4">
-              <Card>
-                <Card.Body>
-                  <Card.Title>{producto.nombre}</Card.Title>
-                  <Card.Text>
-                    <strong>Precio:</strong> {producto.precio}
-                    <br />
-                    <strong>Estado:</strong>{" "}
-                   {producto.estado ? "Activo" : "Eliminado"}
-                    <br />
-                    <strong>Favorito:</strong>{" "}
-                    {producto.favorito ? "Sí" : "No"}
-                  </Card.Text>
-                  <Button
-                    variant="primary"
-                    className="me-2 my-2"
-                    onClick={() =>
-                      navigate(`/productos/${producto.id}/editar`)
-                    }
-                  >
-                    Editar
-                  </Button>
-                  <Button
-                    variant="danger"
-                    className="me-2 my-2"
-                    onClick={() => confirmarEliminar(producto)}
-                  >
-                    Eliminar
-                  </Button>
-                  <Button
-                    variant="secondary"
-                    onClick={() =>
-                      navigate(`/productos/${producto.id}`)
-                    }
-                  >
-                    Ver Detalles
-                  </Button>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
+          <Col md={4} key={producto.id} className="mb-4">
+
+            <Card>
+              <div className="favorito-checkbox-container">
+                <span
+                  className="favorito-icon"
+                  onClick={() => {
+                    const actualizado = productos.map((p) =>
+                      p.id === producto.id ? { ...p, favorite: !p.favorite } : p
+                    );
+                    setProductos(actualizado);
+                    localStorage.setItem("productos", JSON.stringify(actualizado));
+                  }}
+                >
+                  {producto.favorite ? (
+                    <BsStarFill size={24} color="#ffc107" /> // Estrella llena
+                  ) : (
+                    <BsStar size={24} color="#ccc" /> // Estrella vacía
+                  )}
+                </span>
+              </div>
+              <Card.Body>
+                <Card.Img className="card-img-container"
+                  variant="top"
+                  src={producto.image || "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png"}
+                />
+                <Card.Title>
+                  {producto.title}
+                </Card.Title>
+                <Card.Text>
+                  <strong>Precio:</strong> ${producto.price}
+                  <br />
+                  <strong>Categoría:</strong> {producto.category}
+                  {/*
+                                    <strong>Estado:</strong>{" "}
+                                    {producto.estado ? "Activo" : "Inactivo"}
+                                    <br />
+                                    <strong>Favorito:</strong>{" "}
+                                    {producto.favorito ? "Si" : "No"}
+                                    */}
+                </Card.Text>
+                <Button
+                  variant="primary"
+                  className="me-2 my-2"
+                  onClick={() => navigate(`/productos/${producto.id}/editar`)}
+                >
+                  Editar
+                </Button>
+                <Button
+                  variant="danger"
+                  className="me-2 my-2"
+                  onClick={() => confirmarEliminar(producto)}
+                >
+                  Eliminar
+                </Button>
+                <Button
+                  variant="secondary"
+                  onClick={() => navigate(`/productos/${producto.id}`)}
+                >
+                  Ver Detalles
+                </Button>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
       </Row>
 
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
