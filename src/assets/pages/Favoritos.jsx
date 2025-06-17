@@ -2,7 +2,7 @@ import { Container, Row, Col, Card } from "react-bootstrap";
 
 function Favoritos({ productos }) {
     // Filtrar los productos que son favoritos
-    const favoritos = productos.filter((producto) => producto.favorito);
+    const favoritos = productos.filter((producto) => producto.favorite);
 
     if (favoritos.length === 0) {
         return <p className="text-center mt-5">No hay productos favoritos.</p>;
@@ -17,13 +17,13 @@ function Favoritos({ productos }) {
                         <Card>
                             <Card.Img
                                 variant="top"
-                                src={producto.imagen || "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png"}
-                                alt={producto.nombre}
+                                src={producto.image || "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png"}
+                                alt={producto.title}
                             />
                             <Card.Body>
-                                <Card.Title>{producto.nombre}</Card.Title>
-                                <Card.Text>Precio: ${producto.precio}</Card.Text>
-                                <Card.Text>{producto.descripcion}</Card.Text>
+                                <Card.Title>{producto.title}</Card.Title>
+                                <Card.Text>Precio: ${producto.price}</Card.Text>
+                                {/*<Card.Text>{producto.description}</Card.Text>*/}
                             </Card.Body>
                         </Card>
                     </Col>

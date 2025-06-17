@@ -3,7 +3,7 @@ const ProductsContext = createContext();
 
 export const useProducts = () => useContext(ProductsContext);
 
-export const ProductsProvider = ({ children }) => {
+export const ProductosProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [favorites, setFavorites] = useState([]);
 
