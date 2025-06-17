@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, Card, Col, Container, Row, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { BsStarFill, BsStar } from "react-icons/bs";
-import { useProducts } from "../../context/ProductosContext"; // Asegúrate de que la ruta sea correcta
+import { useProducts } from "../../context/ProductosContext";
 import "../../css/ListaProductos.css";
 
 // Ya no se usan los props 'productos' y 'setProductos' porque ahora usamos el contexto
@@ -21,27 +21,26 @@ function ListaProducto() {
 
   const handleConfirmar = () => {
     if (productoSeleccionado) {
-      deleteProduct(productoSeleccionado.id); 
+      deleteProduct(productoSeleccionado.id);
     }
     setShowModal(false);
     setProductoSeleccionado(null);
   };
 
-return (
+  return (
     <Container className="my-4 text-center">
       <h2 className="mb-4">Lista de productos</h2>
       <Row>
         {products // Usar 'products' del contexto
-          .filter((producto) => producto.estado === true) // Mantener el filtro de estado
+          .filter((producto) => producto.estado === true)
           .map((producto) => (
             <Col md={4} key={producto.id} className="mb-4">
-              <Card className="product-card"> {/* Clase para altura uniforme de la tarjeta */}
+              <Card className="product-card"> 
                 <div className="favorito-checkbox-container">
                   <span
                     className="favorito-icon"
-                    onClick={() => toggleFavorite(producto.id)} // Usar toggleFavorite del contexto
+                    onClick={() => toggleFavorite(producto.id)} // Usamos el toggleFavorite!
                   >
-                    {/* Usar producto.favorite (propiedad del contexto) */}
                     {producto.favorite ? (
                       <BsStarFill size={24} color="#ffc107" /> // Estrella llena
                     ) : (
@@ -49,24 +48,20 @@ return (
                     )}
                   </span>
                 </div>
-                {/* Usar producto.image y la clase para estilo de imagen */}
-                <Card.Img
-                  className="card-img-container" // Asegúrate de que esta clase esté definida en tu CSS
-                  variant="top"
-                  src={
-                    producto.image ||
-                    "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png"
-                  }
-                  alt={producto.title} // Usar producto.title
-                />
                 <Card.Body>
-                  <Card.Title>
-                    {producto.title} {/* Usar producto.title */}
-                  </Card.Title>
+                  <Card.Img
+                    className="card-img-container"
+                    variant="top"
+                    src={
+                      producto.image ||
+                      "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png"
+                    }
+                  />
+                  <Card.Title>{producto.title}</Card.Title>
                   <Card.Text>
-                    <strong>Precio:</strong> ${producto.price} {/* Usar producto.price */}
+                    <strong>Precio:</strong> ${producto.price}
                     <br />
-                    <strong>Categoría:</strong> {producto.category} {/* Usar producto.category */}
+                    <strong>Categoría:</strong> {producto.category}
                   </Card.Text>
                   <Button
                     variant="primary"
@@ -100,7 +95,7 @@ return (
         </Modal.Header>
         <Modal.Body>
           ¿Estás seguro de que querés eliminar a{" "}
-          <strong>{productoSeleccionado?.title}</strong> con ID:{" "} {/* Cambiado 'nombre' por 'title' */}
+          <strong>{productoSeleccionado?.title}</strong> con ID:{" "}
           <strong>{productoSeleccionado?.id}</strong>?
         </Modal.Body>
         <Modal.Footer>
