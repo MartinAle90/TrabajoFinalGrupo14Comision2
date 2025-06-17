@@ -73,7 +73,7 @@ export const ProductosProvider = ({ children }) => {
   //agregar producto
   const addProduct = (product) => {
     // Asegurarse de que 'ultimoId' sea un número válido antes de sumarle 1
-    let ultimoId = parseInt(localStorage.getItem("ultimoId"), 10) || 0;
+    let ultimoId = parseInt(localStorage.getItem("ultimoId"), 10) || 20;
     ultimoId += 1;
     localStorage.setItem("ultimoId", ultimoId.toString());
 
