@@ -49,6 +49,14 @@ function ListaProducto({ productos, setProductos }) {
                                     )}
                                 </span>
                             </div>
+                            {producto.imagen && (
+                                <Card.Img
+                                    variant="top"
+                                    src={producto.imagen}
+                                    alt={producto.nombre}
+                                    style={{ maxHeight: '200px', objectFit: 'cover' }}
+                                />
+                            )}
                             <Card.Body>
                                 <Card.Title>
                                     {producto.nombre}
