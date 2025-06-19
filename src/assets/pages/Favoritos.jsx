@@ -7,14 +7,14 @@ import "../css/Favoritos.css";
 function Favoritos() {
   // Ya no necesitas recibir 'productos' y 'setProductos' como props aquí
   // Usar el hook personalizado para obtener los datos y funciones del contexto
-  const { products, toggleFavorite } = useProducts();
+  const { products, toggleFavorite, favorites } = useProducts();
 
   // Filtrar los productos que son favoritos (ahora desde el estado global 'products')
-  const favoritos = products.filter(
-    (producto) => producto.favorite && producto.estado !== false,
-  );
+  // const favoritos = products.filter(
+  //   (producto) => producto.favorite && producto.estado !== false,
+  // );
 
-  if (favoritos.length === 0) {
+  if (favorites.length === 0) {
     return <p className="text-center mt-5">No hay productos favoritos.</p>;
   }
 
@@ -22,7 +22,7 @@ function Favoritos() {
     <Container className="my-4 text-center">
       <h2 className="mb-4">Lista de productos Favoritos</h2>
       <Row>
-        {favoritos.map(
+        {favorites.map(
           (
             producto, // Iterar sobre 'favoritos'
           ) => (
