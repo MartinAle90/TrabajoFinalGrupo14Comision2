@@ -2,26 +2,31 @@
     {
         "nombre": "Leandro",
         "apellido": "Benencia",
-        "avatar": "https://ui-avatars.com/api/?name=Leandro+Benencia&background=0D8ABC&color=fff"
+        "avatar": "https://ui-avatars.com/api/?name=Leandro+Benencia&background=0D8ABC&color=fff",
+        "github": "https://github.com/LeandroBenencia"
     },
     {
         "nombre": "Andrea",
         "apellido": "Burgos",
-        "avatar": "https://ui-avatars.com/api/?name=Andrea+Burgos&background=0D8ABC&color=fff"
+        "avatar": "https://ui-avatars.com/api/?name=Andrea+Burgos&background=0D8ABC&color=fff",
+        "github": "https://github.com/andrea813"
     },
     {
         "nombre": "Gonzalo",
         "apellido": "Cruz",
-        "avatar": "https://ui-avatars.com/api/?name=Gonzalo+Cruz&background=0D8ABC&color=fff"
+        "avatar": "https://ui-avatars.com/api/?name=Gonzalo+Cruz&background=0D8ABC&color=fff",
+        "github": "https://github.com/GonzaECruz"
     },
     {
         "nombre": "Martin",
         "apellido": "Daza",
-        "avatar": "https://ui-avatars.com/api/?name=Martin+Daza&background=0D8ABC&color=fff"
+        "avatar": "https://ui-avatars.com/api/?name=Martin+Daza&background=0D8ABC&color=fff",
+        "github": "https://github.com/MartinAle90"
     },
     {
         "nombre": "Naim",
         "apellido": "Apaza",
-        "avatar": "https://ui-avatars.com/api/?name=Naim+Apaza&background=0D8ABC&color=fff"
+        "avatar": "https://ui-avatars.com/api/?name=Naim+Apaza&background=0D8ABC&color=fff",
+        "github": "https://github.com/Naim-Apaza"
     }
 ]

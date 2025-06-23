@@ -27,7 +27,14 @@ function Nosotros() {
                 <Card.Title className="text-center">
                   <div>{miembro.nombre}</div>
                   <div>{miembro.apellido}</div>
+                  
                 </Card.Title>
+                <div className="text-center mt-2">
+                  <button onClick={() => window.open(miembro.github, "_blank")}
+                  className="btn btn-dark btn-sm">
+                       Ir al GitHub
+                  </button>
+                </div>
               </Card.Body>
             </Card>
           </Col>
