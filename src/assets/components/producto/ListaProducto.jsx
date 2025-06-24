@@ -65,6 +65,9 @@ function ListaProducto() {
                     <br />
                     <strong>Categoría:</strong> {producto.category}
                   </Card.Text>
+                  
+                </Card.Body>
+                <div className="buttons-card">
                   <Button
                     variant="primary"
                     className="me-2 my-2"
@@ -85,7 +88,7 @@ function ListaProducto() {
                   >
                     Ver Detalles
                   </Button>
-                </Card.Body>
+                  </div>
               </Card>
             </Col>
           ))}

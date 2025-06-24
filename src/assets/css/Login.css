@@ -16,19 +16,25 @@
 }
 
 .login-card {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
     border: none;
     padding: 2rem;
+    min-height: 420px;
+    border: none;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    border-radius: 18px;
+    overflow: hidden;
 }
 
 .login-card-body {
     text-align: center;
+    width: 100%;
 }
 
 h2 {
     margin-bottom: 1.5rem;
     font-weight: bold;
-    color: #0056b3;    
+    color: #0056b3;
 }
 
 .form-group {
@@ -45,3 +51,56 @@ h2 {
     border: 1px solid #ced4da;
 }
 
+.login-image-col {
+    background: #e0f7fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 300px;
+    max-width: 350px;
+}
+
+.login-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    min-height: 420px;
+}
+
+.login-form-col {
+    background: #fff;
+    padding: 2.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-form .btn-primary {
+    background: #2bbbad;
+    border: none;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: background 0.2s;
+}
+
+.login-form .btn-primary:hover {
+    background: #009688;
+}
+
+.login-form .form-label {
+    font-weight: 500;
+}
+
+@media (max-width: 767px) {
+    .login-card {
+        flex-direction: column;
+    }
+
+    .login-image-col {
+        display: none !important;
+    }
+
+    .login-form-col {
+        padding: 2rem 1rem;
+    }
+}
