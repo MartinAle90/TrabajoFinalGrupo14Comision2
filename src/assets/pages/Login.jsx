@@ -4,6 +4,7 @@ import { AuthContext } from "../context/AuthContext";
 import { FaUser, FaLock } from "react-icons/fa";
 import { Container, Row, Col, Card, Form, InputGroup } from "react-bootstrap";
 import "../css/Login.css";
+import loginImage from "../../assets/components/images/logo-grupo-14.png";
 
 function Login() {
   const [usuario, setUsuario] = useState("");
@@ -24,46 +25,56 @@ function Login() {
   return (
     <Container className="login-container">
       <Row className="justify-content-center-login">
+
         <Col xs={12} md={8} lg={5}>
-          <Card className="login-card">
-            <Card.Body className="login-card-body">
-              <h2>Iniciar Sesión</h2>
-              <form onSubmit={handleSubmit} className="login-form">
-                <div className="mb-3">
-                  <Form.Label>Usuario</Form.Label>
-                  <InputGroup>
-                    <InputGroup.Text>
-                      <FaUser />
-                    </InputGroup.Text>
-                    <Form.Control
-                      type="text"
-                      placeholder="Ingrese su usuario"
-                      value={usuario}
-                      onChange={(e) => setUsuario(e.target.value)}
-                      required
-                    />
-                  </InputGroup>
-                </div>
-                <div className="mb-3">
-                  <Form.Label>Contraseña</Form.Label>
-                  <InputGroup>
-                    <InputGroup.Text>
-                      <FaLock />
-                    </InputGroup.Text>
-                    <Form.Control
-                      type="password"
-                      placeholder="Contraseña"
-                      value={contrasena}
-                      onChange={(e) => setContrasena(e.target.value)}
-                      required
-                    />
-                  </InputGroup>
-                </div>
-                <button type="submit" className="btn btn-primary">
-                  Ingresar
-                </button>
-              </form>
-            </Card.Body>
+          <Card className="login-card d-flex flex-row overflow-hidden">
+            {/* Columna de la imagen */}
+            <div className="login-image-col d-none d-md-block">
+              <img src={loginImage} alt="Login" className="login-image" />
+            </div>
+            {/* Columna del formulario */}
+            <div className="login-form-col flex-grow-1 d-flex align-items-center">
+              <Card.Body className="login-card-body w-100">
+                <h2 className="mb-4 text-center">¡Bienvenido!</h2>
+                <form onSubmit={handleSubmit} className="login-form">
+                  <div className="mb-3">
+                    <Form.Label>Usuario</Form.Label>
+                    <InputGroup>
+                      <InputGroup.Text>
+                        <FaUser />
+                      </InputGroup.Text>
+                      <Form.Control
+                        type="text"
+                        placeholder="Ingrese su usuario"
+                        value={usuario}
+                        required
+                        onChange={(e) => setUsuario(e.target.value)}
+                      />
+                    </InputGroup>
+                  </div>
+                  <div className="mb-3">
+                    <Form.Group className="mb-4" controlId="formPassword">
+                      <Form.Label>Contraseña</Form.Label>
+                      <InputGroup>
+                        <InputGroup.Text>
+                          <FaLock />
+                        </InputGroup.Text>
+                        <Form.Control
+                          type="password"
+                          placeholder="Contraseña"
+                          value={contrasena}
+                          required
+                          onChange={(e) => setContrasena(e.target.value)}
+                        />
+                      </InputGroup>
+                    </Form.Group>
+                  </div>
+                  <button type="submit" className="btn btn-primary w-100">
+                    Ingresar
+                  </button>
+                </form>
+              </Card.Body>
+            </div>
           </Card>
         </Col>
       </Row>
