@@ -57,7 +57,7 @@ function ListaProducto() {
                       "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png"
                     }
                   />
-                <Card.Body>
+                <Card.Body className="card-body-lista">
                   
                   <Card.Title>{producto.title}</Card.Title>
                   <Card.Text>
