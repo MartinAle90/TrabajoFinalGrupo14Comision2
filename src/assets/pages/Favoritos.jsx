@@ -1,6 +1,8 @@
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { BsStarFill, BsStar } from "react-icons/bs";
 import { useProducts } from "../context/ProductosContext";
+import Alert from "react-bootstrap/Alert";
+import ProductCard from "../components/producto/ProductCard.jsx";
 
 import "../css/Favoritos.css";
 
@@ -9,13 +11,12 @@ function Favoritos() {
   // Usar el hook personalizado para obtener los datos y funciones del contexto
   const { products, toggleFavorite, favorites } = useProducts();
 
-  // Filtrar los productos que son favoritos (ahora desde el estado global 'products')
-  // const favoritos = products.filter(
-  //   (producto) => producto.favorite && producto.estado !== false,
-  // );
-
   if (favorites.length === 0) {
-    return <p className="text-center mt-5">No hay productos favoritos.</p>;
+    return (
+      <Alert className="text-center mt-5" key="info" variant="info">
+        No hay productos favoritos.
+      </Alert>
+    );
   }
 
   return (
@@ -27,37 +28,10 @@ function Favoritos() {
             producto, // Iterar sobre 'favoritos'
           ) => (
             <Col md={4} key={producto.id} className="mb-4">
-              <Card className="product-card">
-                <div className="favorito-checkbox-container">
-                  <span
-                    className="favorito-icon"
-                    onClick={() => toggleFavorite(producto.id)} // ¡Usar toggleFavorite!
-                  >
-                    {producto.favorite ? (
-                      <BsStarFill size={24} color="#ffc107" />
-                    ) : (
-                      <BsStar size={24} color="#ccc" />
-                    )}
-                  </span>
-                </div>
-                <Card.Body>
-                  <Card.Img
-                    className="card-img-container"
-                    variant="top"
-                    src={
-                      producto.image ||
-                      "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png"
-                    }
-                    alt={producto.title}
-                  />
-                  <Card.Title>{producto.title}</Card.Title>
-                  <Card.Text>
-                    <strong>Precio:</strong> ${producto.price}
-                    <br />
-                    <strong>Categoría:</strong> {producto.category}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
+              <ProductCard
+                producto={producto}
+                toggleFavorite={toggleFavorite}
+              />
             </Col>
           ),
         )}
