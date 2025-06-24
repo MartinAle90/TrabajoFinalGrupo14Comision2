@@ -2,7 +2,11 @@ import { Card, Button } from "react-bootstrap";
 import { BsStarFill, BsStar } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
-export default function ProductCard({ producto, toggleFavorite }) {
+export default function ProductCard({
+  producto,
+  toggleFavorite,
+  confirmarEliminar,
+}) {
   const navigate = useNavigate();
   return (
     <>

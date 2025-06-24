@@ -38,6 +38,7 @@ function ListaProducto() {
                 <ProductCard
                   producto={producto}
                   toggleFavorite={toggleFavorite}
+                  confirmarEliminar={confirmarEliminar}
                 />
               </Col>
             ))}
