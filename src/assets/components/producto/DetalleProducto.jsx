@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { Button, Container, Card, Col, Row } from "react-bootstrap";
 import { useProducts } from "../../context/ProductosContext";
+import "../../css/DetalleProducto.css";
 
 function DetalleProducto() {
     const { id } = useParams();
@@ -15,52 +16,65 @@ function DetalleProducto() {
     }
 
     return (
-        <Container className="my-4 text-center">
+        <Container className="my-4">
             <Card>
-                <Card.Header as="h4">Detalles del Producto</Card.Header>
-                <Card.Body className="text-start">
-                    <Row className="mb-3 align-items-center">
-                        <Col md={4}>
-                            <strong>ID:</strong> {producto.id}
-                        </Col>
-                        <Col md={4}>
-                            <strong>Título:</strong> {producto.title}
-                        </Col>
-                        <Col md={4}>
-                            <strong>Precio: </strong>${producto.price}
-                        </Col>
-                    </Row>
+                <Row className="g-0 align-items-center">
+                    <Card.Header as="h4" className="card-header-detalle">Detalles del Producto</Card.Header>
+                    <Col md={8} >
 
-                    <Row className="mb-3">
-                        <Col md={8}>
-                            <strong>Descripción:</strong> {producto.description}
-                        </Col>
-                    </Row>
+                        <Card.Body className="card-body-detalle">
+                            <Row className="mb-3">
+                                <Col md={12}>
+                                    <strong>ID:</strong> {producto.id}
+                                </Col>
+                            </Row>
+                            <Row className="mb-3">
 
-                    <Row className="mb-3">
-                        <Col md={4}>
-                            <strong>Categoría:</strong> {producto.category}
-                        </Col>
-                        <Col md={4}>
-                            {producto.image && (
-                                <img
-                                    src={producto.image}
-                                    alt={producto.title}
-                                    style={{ maxWidth: '100%', maxHeight: '200px', objectFit: 'contain', marginTop: '10px' }}
-                                />
-                            )}
-                        </Col>
-                    </Row>
+                                <Col md={12}>
+                                    <strong>Título:</strong> {producto.title}
+                                </Col>
+                            </Row>
+                            <Row className="mb-3">
 
-                    <Row className="mb-3">
-                        <Col md={4}>
-                            <strong>Estado:</strong> {producto.estado ? "Activo" : "Inactivo"}
-                        </Col>
-                        <Col md={4}>
-                            <strong>Favorito:</strong> {producto.favorite ? "Sí" : "No"}
-                        </Col>
-                    </Row>
-                </Card.Body>
+                                <Col md={12}>
+                                    <strong>Precio: </strong>${producto.price}
+                                </Col>
+                            </Row>
+
+                            <Row className="mb-3">
+                                <Col md={12}>
+                                    <strong>Descripción:</strong> {producto.description}
+                                </Col>
+                            </Row>
+
+                            <Row className="mb-3">
+                                <Col md={12}>
+                                    <strong>Categoría:</strong> {producto.category}
+                                </Col>
+
+                            </Row>
+
+                            <Row className="mb-3">
+                                <Col md={4}>
+                                    <strong>Estado:</strong> {producto.estado ? "Activo" : "Inactivo"}
+                                </Col>
+                                <Col md={4}>
+                                    <strong>Favorito:</strong> {producto.favorite ? "Sí" : "No"}
+                                </Col>
+                            </Row>
+                        </Card.Body>
+
+                    </Col>
+                    <Col md={4} className="text-center p-4">
+                        {producto.image && (
+                            <img
+                                src={producto.image}
+                                alt={producto.title}
+                                style={{ maxWidth: '100%', maxHeight: '200px', objectFit: 'contain', marginTop: '10px' }}
+                            />
+                        )}
+                    </Col>
+                </Row>
             </Card>
 
             <Button

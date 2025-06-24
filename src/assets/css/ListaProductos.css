@@ -29,7 +29,7 @@
     padding: 10px;
 }
 
-.card-body {
+.card-body-lista {
     display: flex;
     flex-direction: column;
     align-items: center;

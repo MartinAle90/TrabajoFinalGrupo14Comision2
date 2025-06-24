@@ -6,9 +6,9 @@ function Home() {
 
 <Container className="home-container text-center">
   <Row  className="justify-content-center">
-    <Col md={8}>
+    <Col md={10}>
       <Card className="home-card">
-        <Card.Body>
+        <Card.Body  className="home-card-body">
           <h1 className="home-title">
             Bienvenido al Sistema de Gestión de Productos
           </h1>
