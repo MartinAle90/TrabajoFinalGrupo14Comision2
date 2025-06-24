@@ -13,15 +13,9 @@ function Login() {
   const { login } = useContext(AuthContext);
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Evita que se recargue la página al enviar el formulario
-    //Validacion de usuario y administrador 
-    if (usuario === "admin" && contrasena === "1234") {
-      localStorage.setItem("logueado", "true");
-      localStorage.setItem("rol", "admin");
-      navigate("/");
-    } else if (usuario === "user" && contrasena === "1234") {
-      localStorage.setItem("logueado", "true");
-      localStorage.setItem("rol", "user");
+    e.preventDefault();
+    const result = login(usuario, contrasena);
+    if (result.success) {
       navigate("/");
     } else {
       alert("Credenciales incorrectas");
@@ -31,7 +25,8 @@ function Login() {
   return (
     <Container className="login-container">
       <Row className="justify-content-center-login">
-        <Col xs={12} md={10} lg={8}>
+
+        <Col xs={12} md={8} lg={5}>
           <Card className="login-card d-flex flex-row overflow-hidden">
             {/* Columna de la imagen */}
             <div className="login-image-col d-none d-md-block">

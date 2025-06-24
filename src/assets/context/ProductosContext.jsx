@@ -115,7 +115,7 @@ export const ProductosProvider = ({ children }) => {
     <ProductsContext.Provider
       value={{
         products,
-        favorites: products.filter((p) => p.favorite),
+        favorites: products.filter((p) => p.favorite && p.estado !== false),
         toggleFavorite,
         addProduct,
         editProduct,
