@@ -26,14 +26,14 @@ function Login() {
     <Container className="login-container">
       <Row className="justify-content-center-login">
 
-        <Col xs={12} md={8} lg={5}>
-          <Card className="login-card d-flex flex-row overflow-hidden">
+        <Col xs={12} md={10} lg={8}>
+          <Card className="login-card">
             {/* Columna de la imagen */}
-            <div className="login-image-col d-none d-md-block">
+            <div className="login-image-col">
               <img src={loginImage} alt="Login" className="login-image" />
             </div>
             {/* Columna del formulario */}
-            <div className="login-form-col flex-grow-1 d-flex align-items-center">
+            <div className="login-form-col">
               <Card.Body className="login-card-body w-100">
                 <h2 className="mb-4 text-center">¡Bienvenido!</h2>
                 <form onSubmit={handleSubmit} className="login-form">
