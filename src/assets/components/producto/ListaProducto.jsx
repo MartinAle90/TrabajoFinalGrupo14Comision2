@@ -28,20 +28,6 @@ function ListaProducto() {
 
   return (
     <div className="lista-productos">
-      <Container className="my-4 text-center">
-        <h2 className="mb-4">Lista de productos</h2>
-        <Row>
-          {products // Usar 'products' del contexto
-            .filter((producto) => producto.estado === true)
-            .map((producto) => (
-              <Col md={4} key={producto.id} className="mb-4">
-                <ProductCard
-                  producto={producto}
-                  toggleFavorite={toggleFavorite}
-                />
-              </Col>
-            ))}
-        </Row>
 
         <Modal show={showModal} onHide={() => setShowModal(false)} centered>
           <Modal.Header closeButton>
