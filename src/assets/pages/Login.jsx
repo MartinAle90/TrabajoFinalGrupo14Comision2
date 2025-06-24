@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { FaUser, FaLock } from "react-icons/fa";
 import { Container, Row, Col, Card, Form, InputGroup } from "react-bootstrap";
-import "../css/Login.css"; // Asegúrate de que la ruta sea correcta
-
+import "../css/Login.css";
 
 function Login() {
   const [usuario, setUsuario] = useState("");
@@ -13,15 +12,9 @@ function Login() {
   const { login } = useContext(AuthContext);
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Evita que se recargue la página al enviar el formulario
-    //Validacion de usuario y administrador 
-    if (usuario === "admin" && contrasena === "1234") {
-      localStorage.setItem("logueado", "true");
-      localStorage.setItem("rol", "admin");
-      navigate("/");
-    } else if (usuario === "user" && contrasena === "1234") {
-      localStorage.setItem("logueado", "true");
-      localStorage.setItem("rol", "user");
+    e.preventDefault();
+    const result = login(usuario, contrasena);
+    if (result.success) {
       navigate("/");
     } else {
       alert("Credenciales incorrectas");
@@ -46,33 +39,29 @@ function Login() {
                       type="text"
                       placeholder="Ingrese su usuario"
                       value={usuario}
-                      required
                       onChange={(e) => setUsuario(e.target.value)}
+                      required
                     />
                   </InputGroup>
                 </div>
                 <div className="mb-3">
-                  <Form.Group className="mb-4" controlId="formPassword">
-                    <Form.Label>Contraseña</Form.Label>
-                    <InputGroup>
-                      <InputGroup.Text>
-                        <FaLock />
-                      </InputGroup.Text>
-                      <Form.Control
-                        type="password"
-                        placeholder="Contraseña"
-                        value={contrasena}
-                        required
-                        onChange={(e) => setContrasena(e.target.value)}
-                      />
-                    </InputGroup>
-                  </Form.Group>
-                </div >
-
+                  <Form.Label>Contraseña</Form.Label>
+                  <InputGroup>
+                    <InputGroup.Text>
+                      <FaLock />
+                    </InputGroup.Text>
+                    <Form.Control
+                      type="password"
+                      placeholder="Contraseña"
+                      value={contrasena}
+                      onChange={(e) => setContrasena(e.target.value)}
+                      required
+                    />
+                  </InputGroup>
+                </div>
                 <button type="submit" className="btn btn-primary">
                   Ingresar
                 </button>
-
               </form>
             </Card.Body>
           </Card>
