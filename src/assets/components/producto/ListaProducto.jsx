@@ -28,7 +28,6 @@ function ListaProducto() {
 
   return (
     <div className="lista-productos">
-
         <Modal show={showModal} onHide={() => setShowModal(false)} centered>
           <Modal.Header closeButton>
             <Modal.Title>Confirmar eliminación</Modal.Title>
