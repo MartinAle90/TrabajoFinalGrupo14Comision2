@@ -1,6 +1,8 @@
 import { Card, Button } from "react-bootstrap";
 import { BsStarFill, BsStar } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext.jsx";
 
 export default function ProductCard({
   producto,
@@ -8,6 +10,7 @@ export default function ProductCard({
   confirmarEliminar,
 }) {
   const navigate = useNavigate();
+  const { rol } = useContext(AuthContext);
   return (
     <>
       <Card className="product-card">
@@ -40,20 +43,25 @@ export default function ProductCard({
           </Card.Text>
         </Card.Body>
         <div className="buttons-card">
-          <Button
-            variant="primary"
-            className="me-2 my-2"
-            onClick={() => navigate(`/productos/${producto.id}/editar`)}
-          >
-            Editar
-          </Button>
-          <Button
-            variant="danger"
-            className="me-2 my-2"
-            onClick={() => confirmarEliminar(producto)}
-          >
-            Eliminar
-          </Button>
+          {rol === "admin" && (
+            <>
+              <Button
+                variant="primary"
+                className="me-2 my-2"
+                onClick={() => navigate(`/productos/${producto.id}/editar`)}
+              >
+                Editar
+              </Button>
+              <Button
+                variant="danger"
+                className="me-2 my-2"
+                onClick={() => confirmarEliminar(producto)}
+              >
+                Eliminar
+              </Button>
+            </>
+          )}
+
           <Button
             variant="secondary"
             onClick={() => navigate(`/productos/${producto.id}`)}

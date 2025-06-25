@@ -3,7 +3,7 @@ import Alert from "react-bootstrap/Alert";
 import { useProducts } from "../../context/ProductosContext";
 import useConfirmDelete from "../../hooks/useConfirmDelete";
 import ProductCard from "./ProductCard.jsx";
-import { useFilteredProducts } from "../hooks/useFilteredProducts.js";
+import { useFilteredProducts } from "../../hooks/useFilteredProducts.js";
 import ProductSearch from "./ProductSearch.jsx";
 import ConfirmarEliminarModal from "../ConfirmarEliminarModal.jsx";
 import { useState } from "react";
@@ -17,8 +17,6 @@ function ListaProducto() {
     products.filter((p) => p.estado === true),
     searchTerm,
   );
-
-
 
   // Hook personalizado para el modal de confirmación
   const {
