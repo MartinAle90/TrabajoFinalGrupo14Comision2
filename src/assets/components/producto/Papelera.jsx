@@ -1,6 +1,6 @@
 import { Container, Row, Col, Card, Button, Modal } from "react-bootstrap";
 import { useProducts } from "../../context/ProductosContext";
-import { BsArrowRepeat, BsTrash } from "react-icons/bs"; 
+import { BsArrowRepeat, BsTrash } from "react-icons/bs";
 import { useState } from "react";
 import "../../css/Papelera.css";
 
@@ -47,12 +47,12 @@ function Papelera() {
       <Row>
         {deletedProducts.map((producto) => (
           <Col md={4} key={producto.id} className="mb-4">
-            <Card className="product-card deleted-card"> 
-              <Card.Img
+            <Card className="product-card deleted-card">
+              <Card.Img className="card-img-container"
                 variant="top"
                 src={producto.image || "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png"}
                 alt={producto.title}
-                style={{ opacity: 0.6 }} 
+                style={{ opacity: 0.6 }}
               />
               <Card.Body>
                 <Card.Title>{producto.title}</Card.Title>
@@ -62,22 +62,23 @@ function Papelera() {
                   <strong>Categoría:</strong> {producto.category}
                 </Card.Text>
                 <small className="text-muted">Eliminado</small>
-                <div className="mt-3">
-                  <Button
-                    variant="success"
-                    className="me-2"
-                    onClick={() => handleRestore(producto.id)}
-                  >
-                    <BsArrowRepeat /> Restaurar
-                  </Button>
-                  <Button
-                    variant="danger"
-                    onClick={() => handleConfirmPermanentDelete(producto)}
-                  >
-                    <BsTrash /> Eliminar Perm.
-                  </Button>
-                </div>
+
               </Card.Body>
+              <div className="buttons-card" style={{ paddingBottom: "10px" }}>
+                <Button
+                  variant="success"
+                  className="me-2"
+                  onClick={() => handleRestore(producto.id)}
+                >
+                  <BsArrowRepeat /> Restaurar
+                </Button>
+                <Button
+                  variant="danger"
+                  onClick={() => handleConfirmPermanentDelete(producto)}
+                >
+                  <BsTrash /> Eliminar Perm.
+                </Button>
+              </div>
             </Card>
           </Col>
         ))}
