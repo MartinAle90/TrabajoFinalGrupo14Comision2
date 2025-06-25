@@ -131,28 +131,14 @@ import Login from "./assets/pages/Login";
 import RutaProtegida from "./assets/components/RutaProtegida";
 import { AuthProvider } from "./assets/context/AuthContext";
 import Footer from "./assets/components/producto/Footer";
+import Papelera from "./assets/components/producto/Papelera";
 
 // Declaración única de initialProductos
 const initialProductos = JSON.parse(localStorage.getItem("productos")) || [];
 function App() {
-  const [productos, setProductos] = useState(initialProductos);
-
-  const agregarProducto = (nuevoProducto) => {
-    const nuevaLista = [...productos, nuevoProducto];
-    setProductos(nuevaLista);
-    localStorage.setItem("productos", JSON.stringify(nuevaLista));
-  };
-
-  const actualizarProducto = (productoActualizado) => {
-    const nuevaLista = productos.map((producto) =>
-      producto.id === productoActualizado.id ? productoActualizado : producto
-    );
-    setProductos(nuevaLista);
-    localStorage.setItem("productos", JSON.stringify(nuevaLista));
-  };
+  const [productos, setProductos] = useState(initialProductos); 
 
   return (
-    
     <AuthProvider>
       <Container className="d-flex flex-column min-vh-100">
         <Routes>
@@ -172,35 +158,41 @@ function App() {
             <Route path="home" element={<Home />} />
             <Route
               path="productos"
-              element={<ListaProducto productos={productos} setProductos={setProductos} />}
+              element={<ListaProducto/>}
             />
 
-            {/* Ruta protegida solo para administradores para crear un nuevo producto */}
             <Route
               path="producto/nuevo"
               element={
                 <RutaProtegida rolRequerido="admin">
-                  <ProductoForm agregarProducto={agregarProducto} />
+                  <ProductoForm/>
                 </RutaProtegida>
               }
             />
 
-            {/* Ruta protegida solo para administradores para editar un producto existente */}
             <Route
               path="productos/:id/editar"
               element={
                 <RutaProtegida rolRequerido="admin">
-                  <EditarProducto productos={productos} actualizarProducto={actualizarProducto} />
+                  <EditarProducto/>
                 </RutaProtegida>
               }
             />
             <Route
               path="productos/:id"
-              element={<DetalleProducto productos={productos} />}
+              element={<DetalleProducto/>}
             />
             <Route
               path="favoritos"
-              element={<Favoritos productos={productos} />}
+              element={<Favoritos/>}
+            />
+            <Route
+              path="papelera"
+              element={
+                <RutaProtegida rolRequerido="admin">
+                  <Papelera />
+                </RutaProtegida>
+              }
             />
             <Route path="nosotros" element={<Nosotros />} />
             <Route path="*" element={<ErrorPage />} />
