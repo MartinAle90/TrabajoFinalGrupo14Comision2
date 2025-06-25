@@ -29,8 +29,14 @@ function Layout() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
-              <Nav.Link href="/" className="nav-link text-secondary text-center">
-                <BsFillHouseDoorFill size={24} className="d-block mx-auto mb-1" />
+              <Nav.Link
+                href="/"
+                className="nav-link text-secondary text-center"
+              >
+                <BsFillHouseDoorFill
+                  size={24}
+                  className="d-block mx-auto mb-1"
+                />
                 Home
               </Nav.Link>
 
@@ -44,13 +50,18 @@ function Layout() {
                 Favoritos
               </Nav.Link>
 
-              <Nav.Link href="/producto/nuevo" className="nav-link text-center">
-                <BsPatchPlus size={24} className="d-block mx-auto mb-1" />
-                Nuevo Producto
-              </Nav.Link>
+              {rol === "admin" && (
+                <Nav.Link
+                  href="/producto/nuevo"
+                  className="nav-link text-center"
+                >
+                  <BsPatchPlus size={24} className="d-block mx-auto mb-1" />
+                  Nuevo Producto
+                </Nav.Link>
+              )}
 
               {/*Papelera de Reciclaje (solo para administradores) */}
-              {rol === "admin" && ( 
+              {rol === "admin" && (
                 <Nav.Link href="/papelera" className="nav-link text-center">
                   <BsTrashFill size={24} className="d-block mx-auto mb-1" />
                   Papelera
@@ -58,7 +69,10 @@ function Layout() {
               )}
 
               <Nav.Link href="/nosotros" className="nav-link text-center">
-                <BsFillInfoCircleFill size={24} className="d-block mx-auto mb-1" />
+                <BsFillInfoCircleFill
+                  size={24}
+                  className="d-block mx-auto mb-1"
+                />
                 Acerca de
               </Nav.Link>
 

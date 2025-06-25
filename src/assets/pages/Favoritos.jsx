@@ -3,7 +3,7 @@ import { useProducts } from "../context/ProductosContext";
 import useConfirmDelete from "../hooks/useConfirmDelete";
 import Alert from "react-bootstrap/Alert";
 import ProductCard from "../components/producto/ProductCard.jsx";
-import { useFilteredProducts } from "../components/hooks/useFilteredProducts.js";
+import { useFilteredProducts } from "../hooks/useFilteredProducts.js";
 import ProductSearch from "../components/producto/ProductSearch.jsx";
 import ConfirmarEliminarModal from "../components/ConfirmarEliminarModal.jsx";
 import { useState } from "react";
@@ -54,7 +54,6 @@ function Favoritos() {
         handleConfirmar={handleConfirmar}
         handleCancelar={handleCancelar}
       />
-
     </Container>
   );
 }
