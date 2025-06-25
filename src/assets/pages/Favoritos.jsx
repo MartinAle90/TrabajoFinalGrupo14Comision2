@@ -12,14 +12,16 @@ import "../css/Favoritos.css";
 function Favoritos() {
   const { deleteProduct, toggleFavorite, favorites } = useProducts();
 
+  const [searchTerm, setSearchTerm] = useState("");
+
   // Hook personalizado para el modal de confirmación
-    const {
-      showModal,
-      productoSeleccionado,
-      confirmarEliminar,
-      handleConfirmar,
-      handleCancelar,
-    } = useConfirmDelete((producto) => deleteProduct(producto.id));
+  const {
+    showModal,
+    productoSeleccionado,
+    confirmarEliminar,
+    handleConfirmar,
+    handleCancelar,
+  } = useConfirmDelete((producto) => deleteProduct(producto.id));
 
   const filteredFavorites = useFilteredProducts(favorites, searchTerm);
 
@@ -36,22 +38,22 @@ function Favoritos() {
       ) : (
         <Row>
           {filteredFavorites.map((producto) => (
-          <Col md={4} key={producto.id} className="mb-4">
-            <ProductCard
-              producto={producto}
-              toggleFavorite={toggleFavorite}
-              confirmarEliminar={confirmarEliminar}
-            />
-          </Col>
-        ))}
-      </Row>
-      
+            <Col md={4} key={producto.id} className="mb-4">
+              <ProductCard
+                producto={producto}
+                toggleFavorite={toggleFavorite}
+                confirmarEliminar={confirmarEliminar}
+              />
+            </Col>
+          ))}
+        </Row>
+      )}
       <ConfirmarEliminarModal
-          showModal={showModal}
-          productoSeleccionado={productoSeleccionado}
-          handleConfirmar={handleConfirmar}
-          handleCancelar={handleCancelar}
-        />
+        showModal={showModal}
+        productoSeleccionado={productoSeleccionado}
+        handleConfirmar={handleConfirmar}
+        handleCancelar={handleCancelar}
+      />
 
     </Container>
   );

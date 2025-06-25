@@ -1,18 +1,16 @@
 import { Button, Col, Container, Row, Modal } from "react-bootstrap";
 import Alert from "react-bootstrap/Alert";
-import { BsStarFill, BsStar } from "react-icons/bs";
 import { useProducts } from "../../context/ProductosContext";
 import useConfirmDelete from "../../hooks/useConfirmDelete";
 import ProductCard from "./ProductCard.jsx";
 import { useFilteredProducts } from "../hooks/useFilteredProducts.js";
 import ProductSearch from "./ProductSearch.jsx";
 import ConfirmarEliminarModal from "../ConfirmarEliminarModal.jsx";
+import { useState } from "react";
 import "../../css/ListaProductos.css";
 
 function ListaProducto() {
-
-  const [showModal, setShowModal] = useState(false);
-  const [productoSeleccionado, setProductoSeleccionado] = useState(null);
+  const { products, toggleFavorite, deleteProduct } = useProducts();
   const [searchTerm, setSearchTerm] = useState("");
 
   const filteredProducts = useFilteredProducts(
@@ -20,7 +18,7 @@ function ListaProducto() {
     searchTerm,
   );
 
-  const { products, toggleFavorite, deleteProduct } = useProducts();
+
 
   // Hook personalizado para el modal de confirmación
   const {
@@ -44,18 +42,18 @@ function ListaProducto() {
         ) : (
           <Row>
             {filteredProducts
-            .filter((producto) => producto.estado === true)
-            .map((producto) => (
-              <Col md={4} key={producto.id} className="mb-4">
-                <ProductCard
-                  producto={producto}
-                  toggleFavorite={toggleFavorite}
-                  confirmarEliminar={confirmarEliminar}
-                />
-              </Col>
-            ))}
-        </Row>
-
+              .filter((producto) => producto.estado === true)
+              .map((producto) => (
+                <Col md={4} key={producto.id} className="mb-4">
+                  <ProductCard
+                    producto={producto}
+                    toggleFavorite={toggleFavorite}
+                    confirmarEliminar={confirmarEliminar}
+                  />
+                </Col>
+              ))}
+          </Row>
+        )}
         <ConfirmarEliminarModal
           showModal={showModal}
           productoSeleccionado={productoSeleccionado}
