@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { Button, Container, Card, Col, Row } from "react-bootstrap";
+import Alert from "react-bootstrap/Alert";
 import { useProducts } from "../../context/ProductosContext";
 import "../../css/DetalleProducto.css";
 
@@ -12,7 +13,11 @@ function DetalleProducto() {
     const producto = products.find((p) => p.id === Number(id));
 
     if (!producto) {
-        return <p className="text-center mt-5">Producto no encontrado.</p>;
+        return (
+            <Alert className="text-center mt-5" key="info" variant="info">
+                Producto no encontrado.
+            </Alert>
+        )
     }
 
     return (
@@ -80,7 +85,7 @@ function DetalleProducto() {
             <Button
                 className="mt-3"
                 variant="secondary"
-                onClick={() => navigate("/productos")}
+                onClick={() => navigate(-1)}
             >
                 Volver a la lista
             </Button>

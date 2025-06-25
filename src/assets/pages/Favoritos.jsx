@@ -1,15 +1,22 @@
-import { Container, Row, Col, Card } from "react-bootstrap";
-import { BsStarFill, BsStar } from "react-icons/bs";
+import { Col, Container, Row, Modal } from "react-bootstrap";
 import { useProducts } from "../context/ProductosContext";
+import useConfirmDelete from "../hooks/useConfirmDelete";
 import Alert from "react-bootstrap/Alert";
 import ProductCard from "../components/producto/ProductCard.jsx";
-
+import ConfirmarEliminarModal from "../components/ConfirmarEliminarModal.jsx";
 import "../css/Favoritos.css";
 
 function Favoritos() {
-  // Ya no necesitas recibir 'productos' y 'setProductos' como props aquí
-  // Usar el hook personalizado para obtener los datos y funciones del contexto
-  const { products, toggleFavorite, favorites } = useProducts();
+  const { deleteProduct, toggleFavorite, favorites } = useProducts();
+
+  // Hook personalizado para el modal de confirmación
+    const {
+      showModal,
+      productoSeleccionado,
+      confirmarEliminar,
+      handleConfirmar,
+      handleCancelar,
+    } = useConfirmDelete((producto) => deleteProduct(producto.id));
 
   if (favorites.length === 0) {
     return (
@@ -23,19 +30,23 @@ function Favoritos() {
     <Container className="my-4 text-center">
       <h2 className="mb-4">Lista de productos Favoritos</h2>
       <Row>
-        {favorites.map(
-          (
-            producto, // Iterar sobre 'favoritos'
-          ) => (
-            <Col md={4} key={producto.id} className="mb-4">
-              <ProductCard
-                producto={producto}
-                toggleFavorite={toggleFavorite}
-              />
-            </Col>
-          ),
-        )}
+        {favorites.map((producto) => (
+          <Col md={4} key={producto.id} className="mb-4">
+            <ProductCard
+              producto={producto}
+              toggleFavorite={toggleFavorite}
+              confirmarEliminar={confirmarEliminar}
+            />
+          </Col>
+        ))}
       </Row>
+      
+      <ConfirmarEliminarModal
+          showModal={showModal}
+          productoSeleccionado={productoSeleccionado}
+          handleConfirmar={handleConfirmar}
+          handleCancelar={handleCancelar}
+        />
     </Container>
   );
 }
