@@ -6,13 +6,14 @@ import {
   BsPatchPlus,
   BsFillInfoCircleFill,
   BsStarFill,
+  BsTrashFill,
 } from "react-icons/bs";
 import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";  
+import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 function Layout() {
-  const { logout } = useContext(AuthContext);
+  const { logout, rol } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -28,7 +29,6 @@ function Layout() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
-
               <Nav.Link href="/" className="nav-link text-secondary text-center">
                 <BsFillHouseDoorFill size={24} className="d-block mx-auto mb-1" />
                 Home
@@ -49,21 +49,28 @@ function Layout() {
                 Nuevo Producto
               </Nav.Link>
 
+              {/*Papelera de Reciclaje (solo para administradores) */}
+              {rol === "admin" && ( 
+                <Nav.Link href="/papelera" className="nav-link text-center">
+                  <BsTrashFill size={24} className="d-block mx-auto mb-1" />
+                  Papelera
+                </Nav.Link>
+              )}
+
               <Nav.Link href="/nosotros" className="nav-link text-center">
                 <BsFillInfoCircleFill size={24} className="d-block mx-auto mb-1" />
                 Acerca de
               </Nav.Link>
 
               {/* Botón Logout */}
-              <Button 
-                variant="outline-danger" 
-                onClick={handleLogout} 
+              <Button
+                variant="outline-danger"
+                onClick={handleLogout}
                 className="ms-3"
                 style={{ alignSelf: "center" }}
               >
                 Logout
               </Button>
-
             </Nav>
           </Navbar.Collapse>
         </Container>

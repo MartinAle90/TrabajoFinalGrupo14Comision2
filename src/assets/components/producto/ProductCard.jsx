@@ -31,13 +31,15 @@ export default function ProductCard({
             "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png"
           }
         />
-        <Card.Body>
+        <Card.Body className="card-body-lista">
           <Card.Title>{producto.title}</Card.Title>
           <Card.Text>
             <strong>Precio:</strong> ${producto.price}
             <br />
             <strong>Categoría:</strong> {producto.category}
           </Card.Text>
+        </Card.Body>
+        <div className="buttons-card">
           <Button
             variant="primary"
             className="me-2 my-2"
@@ -58,7 +60,7 @@ export default function ProductCard({
           >
             Ver Detalles
           </Button>
-        </Card.Body>
+        </div>
       </Card>
     </>
   );

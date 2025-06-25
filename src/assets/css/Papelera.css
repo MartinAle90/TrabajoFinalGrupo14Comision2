@@ -1,0 +1,9 @@
+.deleted-card {
+    border: 1px solid #dc3545; /* Borde rojo */
+    background-color: #f8d7da; /* Fondo suave para indicar "eliminado" */
+    opacity: 0.8; /* Ligeramente transparente */
+}
+
+.deleted-card .card-img-top {
+    filter: grayscale(80%); /* Imagen en escala de grises */
+}
