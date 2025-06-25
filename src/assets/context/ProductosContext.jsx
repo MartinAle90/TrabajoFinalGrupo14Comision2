@@ -6,7 +6,6 @@ export const useProducts = () => useContext(ProductsContext);
 
 export const ProductosProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
-  // const [favorites, setFavorites] = useState([]); // Este no se usa directamente como estado
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -16,26 +15,22 @@ export const ProductosProvider = ({ children }) => {
       if (storedProducts) {
         try {
           initialProductsData = JSON.parse(storedProducts);
-          // Verificamos si es un array y si tiene elementos
           if (
             Array.isArray(initialProductsData) &&
             initialProductsData.length > 0
           ) {
             setProducts(initialProductsData);
           } else {
-            // Si el localStorage está vacío se cargan los datos desde la API
             console.log(
               "LocalStorage 'productos' está vacío o inválido, cargando desde la API.",
             );
             await fetchAndSetProducts();
           }
         } catch (e) {
-          // Si hay un error al parsear JSON se cargan los datos desde la API
           console.error("Error al parsear productos desde localStorage:", e);
           await fetchAndSetProducts();
         }
       } else {
-        // Si no hay nada en localStorage se cargan los datos desde la API
         console.log(
           "No hay 'productos' en localStorage, cargando desde la API.",
         );
@@ -69,7 +64,7 @@ export const ProductosProvider = ({ children }) => {
     localStorage.setItem("productos", JSON.stringify(updated));
   };
 
-  //Marcar o desmarcar favorito
+  // Marcar o desmarcar favorito
   const toggleFavorite = (id) => {
     const updated = products.map((p) =>
       p.id === id ? { ...p, favorite: !p.favorite } : p,
@@ -77,7 +72,7 @@ export const ProductosProvider = ({ children }) => {
     saveToLocalStorage(updated);
   };
 
-  //agregar producto
+  // Agregar producto
   const addProduct = (product) => {
     const maxId = products.reduce((max, p) => (p.id > max ? p.id : max), 0);
     const nuevoId = maxId + 1;
@@ -86,7 +81,7 @@ export const ProductosProvider = ({ children }) => {
       ...product,
       id: nuevoId,
       favorite: false,
-      estado: true,
+      estado: true, // Por defecto, un producto nuevo está activo
     };
 
     const updated = [...products, newProduct];
@@ -95,7 +90,7 @@ export const ProductosProvider = ({ children }) => {
     localStorage.setItem("ultimoId", nuevoId.toString());
   };
 
-  //Editar producto
+  // Editar producto
   const editProduct = (id, updatedData) => {
     const updated = products.map((p) =>
       p.id === id ? { ...p, ...updatedData } : p,
@@ -103,11 +98,25 @@ export const ProductosProvider = ({ children }) => {
     saveToLocalStorage(updated);
   };
 
-  //eliminar producto
+  // Eliminar producto (eliminación suave: cambia 'estado' a false)
   const deleteProduct = (id) => {
     const updated = products.map((p) =>
       p.id === id ? { ...p, estado: false } : p,
     );
+    saveToLocalStorage(updated);
+  };
+
+  //Restaurar producto
+  const restoreProduct = (id) => {
+    const updated = products.map((p) =>
+      p.id === id ? { ...p, estado: true } : p,
+    );
+    saveToLocalStorage(updated);
+  };
+
+  //Eliminar permanentemente un producto
+  const hardDeleteProduct = (id) => {
+    const updated = products.filter((p) => p.id !== id);
     saveToLocalStorage(updated);
   };
 
@@ -120,6 +129,8 @@ export const ProductosProvider = ({ children }) => {
         addProduct,
         editProduct,
         deleteProduct,
+        restoreProduct,
+        hardDeleteProduct,
       }}
     >
       {children}
