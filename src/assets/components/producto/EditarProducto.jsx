@@ -164,7 +164,7 @@ function EditarProducto() {
           <Button
             className="mt-3"
             variant="secondary"
-            onClick={() => navigate("/productos")}
+            onClick={() => navigate(-1)}
           >
             Volver a la lista
           </Button>
@@ -175,7 +175,7 @@ function EditarProducto() {
         mostrar={mostrarModal}
         onCerrar={() => {
           setMostrarModal(false);
-          navigate("/productos");
+          navigate(-1);
         }}
         mensaje="Producto actualizado correctamente."
       />
